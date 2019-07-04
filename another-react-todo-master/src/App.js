@@ -58,7 +58,7 @@ class App extends Component {
     const { input, todos, color } = this.state;
     if (input === '') {
       alert('내용을 입력하여 주세요!');
-      console.log('깃이 되는지 테스트fffffffff');
+      console.log('브런치테스트');
       return;
     }
     this.setState({
