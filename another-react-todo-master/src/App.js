@@ -4,15 +4,13 @@ import Form from './components/Form';
 import TodoItemList from './components/TodoItemList';
 import Palette from './components/Palette';
 import Sort from './components/listSort';
-import moment from 'moment'
+import moment from 'moment';
 import { empty } from 'rxjs';
-
 
 const colors = ['#343a40', '#9c36b5', '#ffd43b', '#e03131'];
 
 class App extends Component {
-
-  id = 3 // 이미 0,1,2 가 존재하므로 3으로 설정
+  id = 3; // 이미 0,1,2 가 존재하므로 3으로 설정
 
   state = {
     input: empty,
@@ -24,8 +22,7 @@ class App extends Component {
         moment: moment()
           .subtract(1, 'days')
           .calendar(),
-        updateYn: false
-
+        updateYn: false,
       },
       {
         id: 1,
@@ -34,8 +31,7 @@ class App extends Component {
         moment: moment()
           .subtract(2, 'days')
           .calendar(),
-        updateYn: false
-
+        updateYn: false,
       },
       {
         id: 2,
@@ -44,29 +40,25 @@ class App extends Component {
         moment: moment()
           .subtract(3, 'days')
           .calendar(),
-        updateYn: false
-
+        updateYn: false,
       },
     ],
     color: '#343a40',
     sortName: '오름차순↑',
-    flag: true
+    flag: true,
   };
 
-
-  handleChange = (e) => {
-
+  handleChange = e => {
     this.setState({
-      input: e.target.value // input 의 다음 바뀔 값
+      input: e.target.value, // input 의 다음 바뀔 값
     });
-
-  }
+  };
 
   handleCreate = () => {
-
     const { input, todos, color } = this.state;
     if (input === '') {
-      alert("내용을 입력하여 주세요!")
+      alert('내용을 입력하여 주세요!');
+      console.log('깃이 되는지 테스트');
       return;
     }
     this.setState({
@@ -80,10 +72,9 @@ class App extends Component {
         updateYn: false,
       }),
     });
+  };
 
-  }
-
-  handleKeyPress = (e) => {
+  handleKeyPress = e => {
     // 눌려진 키가 Enter 면 handleCreate 호출
     if (e.key === 'Enter') {
       if (e.shiftKey === true) {
@@ -92,10 +83,9 @@ class App extends Component {
         e.preventDefault();
       }
     }
-  }
+  };
 
-  handleToggle = (id) => {
-    
+  handleToggle = id => {
     const { todos } = this.state;
 
     // 파라미터로 받은 id 를 가지고 몇번째 아이템인지 찾습니다.
@@ -107,29 +97,28 @@ class App extends Component {
     // 기존의 값들을 복사하고, checked 값을 덮어쓰기
     nextTodos[index] = {
       ...selected,
-      checked: !selected.checked
+      checked: !selected.checked,
     };
 
     this.setState({
-      todos: nextTodos
+      todos: nextTodos,
     });
+  };
 
-  }
-
-  handleRemove = (id) => {
+  handleRemove = id => {
     const { todos } = this.state;
     this.setState({
-      todos: todos.filter(todo => todo.id !== id)
+      todos: todos.filter(todo => todo.id !== id),
     });
-  }
+  };
 
-  handleSelectColor = (color) => {
+  handleSelectColor = color => {
     this.setState({
-      color
-    })
-  }
+      color,
+    });
+  };
   handleSort = () => {
-    const { todos,flag } = this.state;
+    const { todos, flag } = this.state;
 
     this.setState({
       sortName: this.state.sortName === '오름차순↑' ? '내림차순↓' : '오름차순↑',
@@ -138,16 +127,15 @@ class App extends Component {
         var rightArray = b.id;
 
         if (flag) {
-          return (leftArray < rightArray) ? 1 : (leftArray > rightArray) ? -1 : 0;
+          return leftArray < rightArray ? 1 : leftArray > rightArray ? -1 : 0;
         } else {
-          return (leftArray < rightArray) ? -1 : (leftArray > rightArray) ? 1 : 0;
+          return leftArray < rightArray ? -1 : leftArray > rightArray ? 1 : 0;
         }
-
-      }), flag: !this.state.flag
-
-    })
+      }),
+      flag: !this.state.flag,
+    });
     console.log(todos);
-  }
+  };
 
   // 수정모드 전환
   handleUpdateSet = id => {
@@ -156,13 +144,12 @@ class App extends Component {
     const selected = todos[index];
 
     const nextTodos = [...todos];
-if(this.state.todos[index].checked){
+    if (this.state.todos[index].checked) {
+      this.setState({
+        todos: (todos[index].checked = false),
+      });
+    }
 
-  this.setState({
-    todos:todos[index].checked=false
-  })
-}
-   
     nextTodos[index] = {
       ...selected,
       updateYn: true,
@@ -194,55 +181,28 @@ if(this.state.todos[index].checked){
       };
     }
 
-
     this.setState({
       todos: nextTodos,
     });
   };
 
-  onDragEnd = result => {
-
-  }
+  onDragEnd = result => {};
 
   render() {
     const { input, todos, color, sortName } = this.state;
-    const {
-      handleChange,
-      handleCreate,
-      handleKeyPress,
-      handleToggle,
-      handleRemove,
-      handleSelectColor,
-      handleSort,
-      handleUpdateSet,
-      handleUpdate
-
-    } = this;
-
+    const { handleChange, handleCreate, handleKeyPress, handleToggle, handleRemove, handleSelectColor, handleSort, handleUpdateSet, handleUpdate } = this;
 
     return (
-      <TodoListTemplate form={(
-        <Form
-          value={input}
-          onKeyPress={handleKeyPress}
-          onChange={handleChange}
-          onCreate={handleCreate}
-          color={color}
-        />
-      )}
-        palette={(
-          <Palette colors={colors} selected={color} onSelect={handleSelectColor} />
-        )}>
-        <Sort ascSort={handleSort} nowSort={sortName}></Sort>
+      <TodoListTemplate
+        form={<Form value={input} onKeyPress={handleKeyPress} onChange={handleChange} onCreate={handleCreate} color={color} />}
+        palette={<Palette colors={colors} selected={color} onSelect={handleSelectColor} />}
+      >
+        <Sort ascSort={handleSort} nowSort={sortName} />
 
         <TodoItemList todos={todos} onToggle={handleToggle} onRemove={handleRemove} onUpdateSet={handleUpdateSet} onUpdate={handleUpdate} />
       </TodoListTemplate>
-
     );
   }
 }
-
-
-
 
 export default App;
