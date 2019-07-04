@@ -19,7 +19,7 @@ class App extends Component {
     todos: [
       {
         id: 0,
-        text: '리엑트 공부',
+        text: 'use Git',
         checked: false,
         moment: moment()
           .subtract(1, 'days')
