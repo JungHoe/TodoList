@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from './OpengraphReactComponent.css';
+import  './OpengraphReactComponent.css';
 import currencyMappings from './currencyMappings';
 
 export default class OpengraphReactComponent extends Component {
@@ -232,7 +232,6 @@ export default class OpengraphReactComponent extends Component {
   };
 
   renderSmall = resultsToUse => {
-    let string = '';
     if (resultsToUse.products && !this.props.dontUseProduct) {
       return this.renderSmallProduct(resultsToUse);
     } else {
@@ -253,7 +252,6 @@ export default class OpengraphReactComponent extends Component {
               <a href={resultsToUse.url}>{resultsToUse.site_name}</a>
             </div>
             <div className={'titleWrapper'}>
-              <p>{resultsToUse.title}</p>
             </div>
             <p>{resultsToUse.description}</p>
           </div>

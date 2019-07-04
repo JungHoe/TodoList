@@ -24,6 +24,7 @@
 
 .remove {
   margin-right: 1rem;
+  margin-left:1rem;
   color: #e64980;
   font-weight: 600;
   opacity: 0;
@@ -44,6 +45,7 @@ float:left;
   height: 2rem;
   border:1px solid  black;
   margin-right:1rem;
+  margin-bottom:1rem;
 }
 
 .check-mark {
