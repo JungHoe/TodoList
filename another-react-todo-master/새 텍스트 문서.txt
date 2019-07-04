@@ -1,3 +1,0 @@
-https://egghead.io/lessons/react-create-and-style-a-list-of-data-with-react
-
-https://github.com/atlassian/react-beautiful-dnd/issues/875

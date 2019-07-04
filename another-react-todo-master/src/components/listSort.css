@@ -1,0 +1,13 @@
+
+.sortTest{
+    text-align:right;
+    margin-top:1rem;
+    margin-bottom:1rem;
+
+}
+.sortTest:hover{
+opacity:0.5;
+text-decoration: underline;
+
+
+}
