@@ -95,6 +95,7 @@ class App extends Component {
   }
 
   handleToggle = (id) => {
+    
     const { todos } = this.state;
 
     // 파라미터로 받은 id 를 가지고 몇번째 아이템인지 찾습니다.
@@ -155,7 +156,13 @@ class App extends Component {
     const selected = todos[index];
 
     const nextTodos = [...todos];
+if(this.state.todos[index].checked){
 
+  this.setState({
+    todos:todos[index].checked=false
+  })
+}
+   
     nextTodos[index] = {
       ...selected,
       updateYn: true,

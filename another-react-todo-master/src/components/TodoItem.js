@@ -45,8 +45,10 @@ class TodoItem extends Component {
         {updateYn === false ? (
           <div
             className="update"
-            onClick={e => {
+            onClick={() => {
               onUpdateSet(id);
+            
+              
             }}
           >
             수정
@@ -57,6 +59,7 @@ class TodoItem extends Component {
             onClick={e => {
               console.log(this.updateDom.state.updateText);
               console.log(id);
+              
               onUpdate(id, this.updateDom.state.updateText);
             }}
           >
