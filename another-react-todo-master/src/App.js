@@ -55,14 +55,14 @@ class App extends Component {
   };
 
   handleCreate = () => {
-    const { input, todos, color } = this.state;
-    if (input === '') {
+    const { input, todos, color,flag } = this.state;
+    if (input === empty) {
       alert('내용을 입력하여 주세요!');
       console.log('브런치테스트');
       return;
     }
     this.setState({
-      input: '',
+      input: empty,
       todos: todos.concat({
         id: this.id++,
         text: input,
@@ -70,8 +70,18 @@ class App extends Component {
         color,
         moment: moment().format('LLL'),
         updateYn: false,
+      }).sort((a, b) => {
+        var leftArray = a.id;
+        var rightArray = b.id;
+
+        if (flag) {
+          return leftArray < rightArray ? -1 : leftArray > rightArray ? 1 : 0;
+        } else {
+          return leftArray < rightArray ? 1 : leftArray > rightArray ? -1 : 0;
+        }
       }),
     });
+   
   };
 
   handleKeyPress = e => {

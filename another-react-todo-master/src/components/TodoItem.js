@@ -26,7 +26,7 @@ class TodoItem extends Component {
         }
         </div>
         <div className={`todo-text ${checked && 'checked'}`}>
-        {' '}
+     
         {updateYn === false ? (
           <TextLine text={text} color={color} />
         ) : (
