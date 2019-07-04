@@ -45,7 +45,7 @@ class App extends Component {
     ],
     color: '#343a40',
     sortName: '오름차순↑',
-    flag: true,
+    flag: true
   };
 
   handleChange = e => {
@@ -196,12 +196,13 @@ class App extends Component {
       todos: nextTodos,
     });
   };
-
-  onDragEnd = result => {};
+ 
 
   render() {
-    const { input, todos, color, sortName } = this.state;
-    const { handleChange, handleCreate, handleKeyPress, handleToggle, handleRemove, handleSelectColor, handleSort, handleUpdateSet, handleUpdate } = this;
+    const { input, todos, color, sortName} = this.state;
+    const { handleChange, handleCreate, handleKeyPress, 
+      handleToggle, handleRemove, handleSelectColor, handleSort, handleUpdateSet,
+       handleUpdate, } = this;
 
     return (
       <TodoListTemplate
@@ -210,7 +211,9 @@ class App extends Component {
       >
         <Sort ascSort={handleSort} nowSort={sortName} />
 
-        <TodoItemList todos={todos} onToggle={handleToggle} onRemove={handleRemove} onUpdateSet={handleUpdateSet} onUpdate={handleUpdate} />
+        <TodoItemList todos={todos} onToggle={handleToggle} onRemove={handleRemove}
+         onUpdateSet={handleUpdateSet} onUpdate={handleUpdate} />
+  
       </TodoListTemplate>
     );
   }
