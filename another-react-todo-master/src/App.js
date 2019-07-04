@@ -56,13 +56,13 @@ class App extends Component {
 
   handleCreate = () => {
     const { input, todos, color } = this.state;
-    if (input === '') {
+    if (input === empty) {
       alert('내용을 입력하여 주세요!');
       console.log('브런치테스트');
       return;
     }
     this.setState({
-      input: '',
+      input: empty,
       todos: todos.concat({
         id: this.id++,
         text: input,

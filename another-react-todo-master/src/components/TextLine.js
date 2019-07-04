@@ -19,12 +19,9 @@ class TextLine extends Component {
                 if (url.match(regUrl)) {
                   opengraph.push({ url: url });
                   return (
-                    <div>
-                      <a href={'//' + url} target="_blank">
-                        {url}
-                      </a>
-                      <OpengraphReactComponent site={url} appId={'0d6683d8-187d-4aa9-a1fb-b43260b087a4'} size={'small'} />
-                    </div>
+                    <a href={'//' + url} target="_blank">
+                      {url}
+                    </a>
                   );
                 } else {
                   return url;
@@ -35,8 +32,8 @@ class TextLine extends Component {
           );
         })}
         <div>
-          {opengraph.map(metaUrl => {
-            <OpengraphReactComponent site={metaUrl} appId={'0d6683d8-187d-4aa9-a1fb-b43260b087a4'} size={'small'} />;
+          {opengraph.map(meta => {
+            return <OpengraphReactComponent site={meta.url} appId={'0d6683d8-187d-4aa9-a1fb-b43260b087a4'} size={'small'} />;
           })}
         </div>
       </div>
