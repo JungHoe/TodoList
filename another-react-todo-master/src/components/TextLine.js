@@ -12,6 +12,7 @@ class TextLine extends Component {
       <div className={TextLine} style={{ color: color }}>
         {/* 1차적으로 줄바꿈을 기준으로 나눈다. */}
         {txt.split('\n').map(line => {
+         
           return (
             <div>
               {/* 2차로 한줄에 있는 텍스트를 정규식을 기준으로 나눠서 각각 처리한다. */}
