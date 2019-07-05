@@ -6,6 +6,7 @@ import Palette from './components/Palette';
 import Sort from './components/listSort';
 import moment from 'moment';
 import { empty } from 'rxjs';
+import MakeModal from './components/MakeModal';
 
 const colors = ['#343a40', '#9c36b5', '#ffd43b', '#e03131'];
 
@@ -13,12 +14,15 @@ class App extends Component {
   id = 3; // 이미 0,1,2 가 존재하므로 3으로 설정
 
   state = {
+    getRemoveId:0,
+    modalIsOpen:false,
     input: empty,
     todos: [
       {
         id: 0,
         text: 'use Git',
         checked: false,
+        color: '#343a40',
         moment: moment()
           .subtract(1, 'days')
           .calendar(),
@@ -28,6 +32,7 @@ class App extends Component {
         id: 1,
         text: '밥먹기',
         checked: true,
+        color: '#343a40',
         moment: moment()
           .subtract(2, 'days')
           .calendar(),
@@ -37,6 +42,7 @@ class App extends Component {
         id: 2,
         text: '집가기',
         checked: false,
+        color: '#343a40',
         moment: moment()
           .subtract(3, 'days')
           .calendar(),
@@ -128,6 +134,7 @@ class App extends Component {
       color,
     });
   };
+
   handleSort = () => {
     const { todos, flag } = this.state;
 
@@ -172,13 +179,12 @@ class App extends Component {
   };
 
   // 수정완료
-  handleUpdate = (id, updateText) => {
+  handleUpdate = (id, updateText, updateColor) => {
     const { todos } = this.state;
     const index = todos.findIndex(todo => todo.id === id);
     const selected = todos[index];
-
     const nextTodos = [...todos];
-
+    console.log('update이벤트 속 컬러' + updateColor);
     if (updateText === '') {
       nextTodos[index] = {
         ...selected,
@@ -188,6 +194,7 @@ class App extends Component {
       nextTodos[index] = {
         ...selected,
         text: updateText,
+        color: updateColor,
         updateYn: false,
       };
     }
@@ -197,20 +204,38 @@ class App extends Component {
     });
   };
 
-  onDragEnd = result => {};
+  openModal=(id)=> {
+    this.setState({modalIsOpen: true,getRemoveId:id});
+  }
+
+ 
+
+  closeModal=()=> {
+    const{getRemoveId}=this.state;
+    this.handleRemove(getRemoveId);
+    this.setState({modalIsOpen: false});
+  }
+ 
 
   render() {
-    const { input, todos, color, sortName } = this.state;
-    const { handleChange, handleCreate, handleKeyPress, handleToggle, handleRemove, handleSelectColor, handleSort, handleUpdateSet, handleUpdate } = this;
+    const { input, todos, color, sortName,modalIsOpen} = this.state;
+    const { handleChange, handleCreate, handleKeyPress, 
+      handleToggle, handleRemove, handleSelectColor, handleSort, handleUpdateSet,
+       handleUpdate,openModal,closeModal } = this;
 
     return (
       <TodoListTemplate
         form={<Form value={input} onKeyPress={handleKeyPress} onChange={handleChange} onCreate={handleCreate} color={color} />}
-        palette={<Palette colors={colors} selected={color} onSelect={handleSelectColor} />}
+        palette={<Palette colors={colors} selected={color} onSelect={handleSelectColor}  />}
       >
         <Sort ascSort={handleSort} nowSort={sortName} />
 
-        <TodoItemList todos={todos} onToggle={handleToggle} onRemove={handleRemove} onUpdateSet={handleUpdateSet} onUpdate={handleUpdate} />
+
+        <TodoItemList todos={todos} onToggle={handleToggle} onRemove={handleRemove}
+         onUpdateSet={handleUpdateSet} onUpdate={handleUpdate} openModal={openModal} />
+      <MakeModal modalIsOpen={modalIsOpen} closeModal={closeModal}></MakeModal>
+
+
       </TodoListTemplate>
     );
   }
