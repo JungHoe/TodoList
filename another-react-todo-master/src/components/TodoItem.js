@@ -10,16 +10,16 @@ class TodoItem extends Component {
     super();
 
     this.state = {
-      modalIsOpen: false
+      modalIsOpen: false,
     };
 
-    this.openModal = this.openModal.bind(this); 
+    this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
   openModal() {
-    this.setState({modalIsOpen: true});
+    this.setState({ modalIsOpen: true });
   }
 
   afterOpenModal() {
@@ -28,46 +28,41 @@ class TodoItem extends Component {
   }
 
   closeModal() {
-    this.setState({modalIsOpen: false});
+    this.setState({ modalIsOpen: false });
   }
 
   render() {
-    const { text, checked, id, color, onToggle, onRemove, moment, updateYn, onUpdateSet, onUpdate} = this.props;
-   
-    return (
-      <div className="todo-item"  >
+    const { text, checked, id, color, colors, onToggle, onRemove, moment, updateYn, onUpdateSet, onUpdate } = this.props;
 
+    return (
+      <div className="todo-item">
         <div style={{ color }} className={'todo-text'}>
-        
-        <div className="checking" onClick={() => onToggle(id)}>
-        {
-          checked && (<div className="check-mark">&#x2713;</div>)
-        }
-        </div>
-        <div className={`todo-text ${checked && 'checked'}`}>
-     
-        {updateYn === false ? (
-          <TextLine text={text} color={color} />
-        ) : (
-          <Update
-            ClassName=""
-            text={text}
-            color={color}
-            ref={ref => {
-              this.updateDom = ref;
-            }}
-          />
-        )}
-      </div>
-          <div className='date'>{moment} 작성됨</div>
+          <div className="checking" onClick={() => onToggle(id)}>
+            {checked && <div className="check-mark">&#x2713;</div>}
+          </div>
+          <div className={`todo-text ${checked && 'checked'}`}>
+            {updateYn === false ? (
+              <TextLine text={text} color={color} />
+            ) : (
+              <div>
+                <Update
+                  text={text}
+                  color={color}
+                  colors={colors}
+                  ref={ref => {
+                    this.updateDom = ref;
+                  }}
+                />
+              </div>
+            )}
+          </div>
+          <div className="date">{moment} 작성됨</div>
         </div>
         {updateYn === false ? (
           <div
             className="update"
             onClick={() => {
               onUpdateSet(id);
-            
-              
             }}
           >
             수정
@@ -76,42 +71,37 @@ class TodoItem extends Component {
           <div
             className="update"
             onClick={e => {
-              console.log(this.updateDom.state.updateText);
-              console.log(id);
-              
-              onUpdate(id, this.updateDom.state.updateText);
+              onUpdate(id, this.updateDom.state.updateText, this.updateDom.state.updateColor);
             }}
           >
             완료
           </div>
         )}
-        <div className="remove" onClick={this.openModal}
-        >&times;</div>
+        <div className="remove" onClick={this.openModal}>
+          &times;
+        </div>
         <div>
-        
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          contentLabel="Example Modal"
-          className="Modal"
-        >
-
-          <h2 ref={subtitle => this.subtitle = subtitle}>정말 삭제 하시겠습니까?</h2>
-          <button onClick={(e)=>{
-            e.stopPropagation();
-            onRemove(id);
-            this.closeModal();
-          }}
-
-          >Remove</button>
-        </Modal>
+          <Modal
+            isOpen={this.state.modalIsOpen}
+            onAfterOpen={this.afterOpenModal}
+            onRequestClose={this.closeModal}
+            contentLabel="Example Modal"
+            className="Modal"
+          >
+            <h2 ref={subtitle => (this.subtitle = subtitle)}>정말 삭제 하시겠습니까?</h2>
+            <button
+              onClick={e => {
+                e.stopPropagation();
+                onRemove(id);
+                this.closeModal();
+              }}
+            >
+              Remove
+            </button>
+          </Modal>
+        </div>
       </div>
-      </div>
-
-   
     );
-  
   }
 }
 
