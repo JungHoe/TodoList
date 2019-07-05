@@ -12,10 +12,7 @@ class TodoItem extends Component {
     const { text, checked, id, color, onToggle, onRemove, moment, updateYn, onUpdateSet, onUpdate} = this.props;
    
     return (
-    
-   
-   
-   
+       
       <div className="todo-item"  >
 
         <div style={{ color }} className={'todo-text'}>
