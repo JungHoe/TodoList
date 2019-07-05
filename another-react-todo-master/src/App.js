@@ -6,6 +6,7 @@ import Palette from './components/Palette';
 import Sort from './components/listSort';
 import moment from 'moment';
 import { empty } from 'rxjs';
+import MakeModal from './components/MakeModal';
 
 const colors = ['#343a40', '#9c36b5', '#ffd43b', '#e03131'];
 
@@ -13,6 +14,8 @@ class App extends Component {
   id = 3; // 이미 0,1,2 가 존재하므로 3으로 설정
 
   state = {
+    getRemoveId:0,
+    modalIsOpen:false,
     input: empty,
     todos: [
       {
@@ -196,24 +199,35 @@ class App extends Component {
       todos: nextTodos,
     });
   };
+  openModal=(id)=> {
+    this.setState({modalIsOpen: true,getRemoveId:id});
+  }
+
+ 
+
+  closeModal=()=> {
+    const{getRemoveId}=this.state;
+    this.handleRemove(getRemoveId);
+    this.setState({modalIsOpen: false});
+  }
  
 
   render() {
-    const { input, todos, color, sortName} = this.state;
+    const { input, todos, color, sortName,modalIsOpen} = this.state;
     const { handleChange, handleCreate, handleKeyPress, 
       handleToggle, handleRemove, handleSelectColor, handleSort, handleUpdateSet,
-       handleUpdate, } = this;
+       handleUpdate,openModal,closeModal } = this;
 
     return (
       <TodoListTemplate
         form={<Form value={input} onKeyPress={handleKeyPress} onChange={handleChange} onCreate={handleCreate} color={color} />}
-        palette={<Palette colors={colors} selected={color} onSelect={handleSelectColor} />}
+        palette={<Palette colors={colors} selected={color} onSelect={handleSelectColor}  />}
       >
         <Sort ascSort={handleSort} nowSort={sortName} />
 
         <TodoItemList todos={todos} onToggle={handleToggle} onRemove={handleRemove}
-         onUpdateSet={handleUpdateSet} onUpdate={handleUpdate} />
-  
+         onUpdateSet={handleUpdateSet} onUpdate={handleUpdate} openModal={openModal} />
+      <MakeModal modalIsOpen={modalIsOpen} closeModal={closeModal}></MakeModal>
       </TodoListTemplate>
     );
   }
