@@ -14,37 +14,35 @@ class TodoItem extends Component {
     return (
       <div className="todo-item"  >
 
+    return (
+      <div className="todo-item">
         <div style={{ color }} className={'todo-text'}>
-        
-        <div className="checking" onClick={() => onToggle(id)}>
-        {
-          checked && (<div className="check-mark">&#x2713;</div>)
-        }
-        </div>
-        <div className={`todo-text ${checked && 'checked'}`}>
-     
-        {updateYn === false ? (
-          <TextLine text={text} color={color} />
-        ) : (
-          <Update
-            ClassName=""
-            text={text}
-            color={color}
-            ref={ref => {
-              this.updateDom = ref;
-            }}
-          />
-        )}
-      </div>
-          <div className='date'>{moment} 작성됨</div>
+          <div className="checking" onClick={() => onToggle(id)}>
+            {checked && <div className="check-mark">&#x2713;</div>}
+          </div>
+          <div className={`todo-text ${checked && 'checked'}`}>
+            {updateYn === false ? (
+              <TextLine text={text} color={color} />
+            ) : (
+              <div>
+                <Update
+                  text={text}
+                  color={color}
+                  colors={colors}
+                  ref={ref => {
+                    this.updateDom = ref;
+                  }}
+                />
+              </div>
+            )}
+          </div>
+          <div className="date">{moment} 작성됨</div>
         </div>
         {updateYn === false ? (
           <div
             className="update"
             onClick={() => {
               onUpdateSet(id);
-            
-              
             }}
           >
             수정
@@ -53,10 +51,7 @@ class TodoItem extends Component {
           <div
             className="update"
             onClick={e => {
-              console.log(this.updateDom.state.updateText);
-              console.log(id);
-              
-              onUpdate(id, this.updateDom.state.updateText);
+              onUpdate(id, this.updateDom.state.updateText, this.updateDom.state.updateColor);
             }}
           >
             완료
@@ -70,10 +65,7 @@ class TodoItem extends Component {
         
       </div>
       </div>
-
-   
     );
-  
   }
 }
 

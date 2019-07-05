@@ -22,6 +22,7 @@ class App extends Component {
         id: 0,
         text: 'use Git',
         checked: false,
+        color: '#343a40',
         moment: moment()
           .subtract(1, 'days')
           .calendar(),
@@ -31,6 +32,7 @@ class App extends Component {
         id: 1,
         text: '밥먹기',
         checked: true,
+        color: '#343a40',
         moment: moment()
           .subtract(2, 'days')
           .calendar(),
@@ -40,6 +42,7 @@ class App extends Component {
         id: 2,
         text: '집가기',
         checked: false,
+        color: '#343a40',
         moment: moment()
           .subtract(3, 'days')
           .calendar(),
@@ -48,7 +51,7 @@ class App extends Component {
     ],
     color: '#343a40',
     sortName: '오름차순↑',
-    flag: true
+    flag: true,
   };
 
   handleChange = e => {
@@ -131,6 +134,7 @@ class App extends Component {
       color,
     });
   };
+
   handleSort = () => {
     const { todos, flag } = this.state;
 
@@ -175,13 +179,12 @@ class App extends Component {
   };
 
   // 수정완료
-  handleUpdate = (id, updateText) => {
+  handleUpdate = (id, updateText, updateColor) => {
     const { todos } = this.state;
     const index = todos.findIndex(todo => todo.id === id);
     const selected = todos[index];
-
     const nextTodos = [...todos];
-
+    console.log('update이벤트 속 컬러' + updateColor);
     if (updateText === '') {
       nextTodos[index] = {
         ...selected,
@@ -191,6 +194,7 @@ class App extends Component {
       nextTodos[index] = {
         ...selected,
         text: updateText,
+        color: updateColor,
         updateYn: false,
       };
     }
