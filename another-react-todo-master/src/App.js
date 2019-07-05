@@ -203,6 +203,7 @@ class App extends Component {
       todos: nextTodos,
     });
   };
+
   openModal=(id)=> {
     this.setState({modalIsOpen: true,getRemoveId:id});
   }
@@ -229,9 +230,12 @@ class App extends Component {
       >
         <Sort ascSort={handleSort} nowSort={sortName} />
 
+
         <TodoItemList todos={todos} onToggle={handleToggle} onRemove={handleRemove}
          onUpdateSet={handleUpdateSet} onUpdate={handleUpdate} openModal={openModal} />
       <MakeModal modalIsOpen={modalIsOpen} closeModal={closeModal}></MakeModal>
+
+
       </TodoListTemplate>
     );
   }

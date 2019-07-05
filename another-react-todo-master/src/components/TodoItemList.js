@@ -19,8 +19,10 @@ class TodoItemList extends Component {
         moment={moment}
         key={id}
         updateYn={updateYn}
+
         openModal={openModal}
       
+
       />
     ));
 

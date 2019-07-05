@@ -5,13 +5,16 @@ import TextLine from './TextLine';
 import Update from './UpdateForm';
 
 
+
 class TodoItem extends Component {
-  
+
+
 
   render() {
     const { text, checked, id, color, onToggle, openModal, moment, updateYn, onUpdateSet, onUpdate} = this.props;
    
     return (
+       
       <div className="todo-item"  >
 
     return (
@@ -57,6 +60,7 @@ class TodoItem extends Component {
             완료
           </div>
         )}
+
         <div className="remove" onClick={() => openModal(id)
         }
         >&times;</div>
@@ -64,6 +68,8 @@ class TodoItem extends Component {
         
         
       </div>
+
+ 
       </div>
     );
   }

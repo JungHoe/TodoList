@@ -1,7 +1,7 @@
 import React from 'react';
 import './Form.css';
 
-const Form = ({ value, onChange, onCreate, onKeyPress, color, typeValue }) => {
+const Form = ({ value, onChange, onCreate, onKeyPress, color }) => {
   return (
     <div className="form">
       <textarea
