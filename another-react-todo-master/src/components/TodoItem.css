@@ -63,28 +63,4 @@ a{
 .date{
   font-size:10px;
   color:#868e96;
-}  .Modal {
- width:300px;
- height:150px;
- margin:auto;
- margin-top:200px;
- padding:10px;
-  background-color: papayawhip;
-}
-.Modal h2{
-  text-align: center;
-  margin-top :2rem;
-
-}
-.Modal button{
-  background:paleturquoise;
-  border:none;
-  font-weight: bold;
-  height: 30px;
-  display: block;
-  margin:auto;
-
-}
-.Modal button:hover{
-  cursor: pointer;
 }
