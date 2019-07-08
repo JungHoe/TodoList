@@ -1,6 +1,14 @@
 h2{
   color:red;
+  text-align: CENTER;
 }
 .Modal{
+  padding: 10px;
 width:300px;
+
+margin:auto;
+}
+.Modal button{
+  margin-left:50px;
+ 
 }
