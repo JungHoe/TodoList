@@ -4,18 +4,9 @@ import './TodoItem.css';
 import TextLine from './TextLine';
 import Update from './UpdateForm';
 
-
-
 class TodoItem extends Component {
-
-
-
   render() {
-    const { text, checked, id, color, onToggle, openModal, moment, updateYn, onUpdateSet, onUpdate} = this.props;
-   
-    return (
-       
-      <div className="todo-item"  >
+    const { text, checked, id, color, colors, onToggle, openModal, moment, updateYn, onUpdateSet, onUpdate } = this.props;
 
     return (
       <div className="todo-item">
@@ -61,15 +52,10 @@ class TodoItem extends Component {
           </div>
         )}
 
-        <div className="remove" onClick={() => openModal(id)
-        }
-        >&times;</div>
-        <div>
-        
-        
-      </div>
-
- 
+        <div className="remove" onClick={() => openModal(id)}>
+          &times;
+        </div>
+        <div />
       </div>
     );
   }
