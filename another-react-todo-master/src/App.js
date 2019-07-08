@@ -184,10 +184,11 @@ class App extends Component {
     const index = todos.findIndex(todo => todo.id === id);
     const selected = todos[index];
     const nextTodos = [...todos];
-    console.log('update이벤트 속 컬러' + updateColor);
+   
     if (updateText === '') {
       nextTodos[index] = {
         ...selected,
+        color: updateColor,
         updateYn: false,
       };
     } else {
@@ -202,6 +203,8 @@ class App extends Component {
     this.setState({
       todos: nextTodos,
     });
+    console.log('update이벤트 속 컬러' + updateColor);
+    console.log('현재컬러'+todos[index].color);
   };
 
   openModal=(id)=> {
@@ -235,8 +238,8 @@ class App extends Component {
 
 
         <TodoItemList todos={todos} onToggle={handleToggle} onRemove={handleRemove}
-         onUpdateSet={handleUpdateSet} onUpdate={handleUpdate} openModal={openModal} colors={colors}/>
-      <MakeModal modalIsOpen={modalIsOpen} closeModal={closeModal } cancleModal={cancleModal}></MakeModal>
+         onUpdateSet={handleUpdateSet} onUpdate={handleUpdate} openModal={openModal} colors={colors} />
+      <MakeModal modalIsOpen={modalIsOpen} closeModal={closeModal} cancleModal={cancleModal}></MakeModal>
 
 
       </TodoListTemplate>
