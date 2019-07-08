@@ -215,13 +215,16 @@ class App extends Component {
     this.handleRemove(getRemoveId);
     this.setState({modalIsOpen: false});
   }
+  cancleModal=()=> {
+    this.setState({modalIsOpen: false});
+  }
  
 
   render() {
     const { input, todos, color, sortName,modalIsOpen} = this.state;
     const { handleChange, handleCreate, handleKeyPress, 
       handleToggle, handleRemove, handleSelectColor, handleSort, handleUpdateSet,
-       handleUpdate,openModal,closeModal } = this;
+       handleUpdate,openModal,closeModal,cancleModal } = this;
 
     return (
       <TodoListTemplate
@@ -232,8 +235,8 @@ class App extends Component {
 
 
         <TodoItemList todos={todos} onToggle={handleToggle} onRemove={handleRemove}
-         onUpdateSet={handleUpdateSet} onUpdate={handleUpdate} openModal={openModal} />
-      <MakeModal modalIsOpen={modalIsOpen} closeModal={closeModal}></MakeModal>
+         onUpdateSet={handleUpdateSet} onUpdate={handleUpdate} openModal={openModal} colors={colors}/>
+      <MakeModal modalIsOpen={modalIsOpen} closeModal={closeModal } cancleModal={cancleModal}></MakeModal>
 
 
       </TodoListTemplate>
