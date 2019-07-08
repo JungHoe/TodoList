@@ -8,7 +8,7 @@ class UpdateForm extends Component {
 
   state = {
     updateText: '',
-    updateColor: this.props.color,
+    updateColor: this.props.color
   };
 
   updateText = e => {
@@ -19,12 +19,12 @@ class UpdateForm extends Component {
 
   updateColor = e => {
     this.setState({
-      updateColor: e.target.id,
+      updateColor: e.target.id
     });
   };
 
   render() {
-    const { text, colors, color } = this.props;
+    const { text, colors} = this.props;
     console.log('state :' + this.state.updateColor);
     return (
       <div>
@@ -42,6 +42,7 @@ class UpdateForm extends Component {
         </div>
         <div className="colorWrappBox">
           {colors.map(color => {
+            
             return <div className="colorBox" style={{ backgroundColor: color }} id={color} onClick={this.updateColor} />;
           })}
         </div>

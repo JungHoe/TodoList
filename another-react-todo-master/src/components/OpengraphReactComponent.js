@@ -23,7 +23,6 @@ export default class OpengraphReactComponent extends Component {
 
   render() {
     const { site } = this.props;
-    const { getOpengraph } = this;
     const { title, image, description } = this.state;
 
     return (
