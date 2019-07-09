@@ -14,9 +14,9 @@ class TodoItem extends Component {
           <div className="checking" onClick={() => onToggle(id)}>
             {checked && <div className="check-mark">&#x2713;</div>}
           </div>
-          <div className={`todo-text ${checked && 'checked'}`}>
+          <div className={`todo-text`}>
             {updateYn === false ? (
-              <TextLine text={text} color={color} />
+              <TextLine text={text} color={color} checked={checked} />
             ) : (
               <div>
                 <Update

@@ -1,7 +1,7 @@
-.textLine {
-  display: flex;
+.checked {
+  text-decoration: line-through;
+ 
 }
-
 a:link {
   text-decoration: none;
 }

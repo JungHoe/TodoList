@@ -4,7 +4,7 @@ import OpengraphReactComponent from './OpengraphReactComponent';
 
 class TextLine extends Component {
   render() {
-    const { text, color } = this.props;
+    const { text, color,checked } = this.props;
     const opengraph = [];
     let txt = text;
     let regUrl2 = /^(((http(s?))\:\/\/)?)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/;
@@ -26,7 +26,7 @@ class TextLine extends Component {
     };
 
     return (
-      <div className={TextLine} style={{ color: color }}>
+      <div className={` ${checked && 'checked'}`}style={{ color: color }}>
         {/* 1차적으로 줄바꿈을 기준으로 나눈다. */}
         {txt.split('\n').map(line => {
           return (
