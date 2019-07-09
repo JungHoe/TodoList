@@ -21,7 +21,7 @@ class TextLine extends Component {
                     opengraph.push({ url: url });
                   }
                   return (
-                    <a href={url} target="_blank">
+                    <a href={url} target="_blank" style={{ color: color }}>
                       {url}
                     </a>
                   );
