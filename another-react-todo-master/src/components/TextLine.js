@@ -19,12 +19,12 @@ class TextLine extends Component {
                 if (url.match(regUrl2)) {
                   if (opengraph.length < 1) {
                     opengraph.push({ url: url });
-                    return (
-                      <a href={url} target="_blank">
-                        {url}
-                      </a>
-                    );
                   }
+                  return (
+                    <a href={url} target="_blank">
+                      {url}
+                    </a>
+                  );
                 } else {
                   return ' ' + url;
                 }
