@@ -8,6 +8,23 @@ class TextLine extends Component {
     const opengraph = [];
     let txt = text;
     let regUrl2 = /^(((http(s?))\:\/\/)?)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/;
+    let leg = /(http(s)?:\/\/)([a-z0-9\w]+\.*)+[a-z0-9]{2,4}/gi;
+    const aTag = url => {
+      if (url.match(leg)) {
+        return (
+          <a href={url} target="_blank" style={{ color: color }}>
+            {url}
+          </a>
+        );
+      } else {
+        return (
+          <a href={'//' + url} target="_blank" style={{ color: color }}>
+            {url}
+          </a>
+        );
+      }
+    };
+
     return (
       <div className={TextLine} style={{ color: color }}>
         {/* 1차적으로 줄바꿈을 기준으로 나눈다. */}
@@ -20,11 +37,7 @@ class TextLine extends Component {
                   if (opengraph.length < 1) {
                     opengraph.push({ url: url });
                   }
-                  return (
-                    <a href={url} target="_blank" style={{ color: color }}>
-                      {url}
-                    </a>
-                  );
+                  return aTag(url);
                 } else {
                   return ' ' + url;
                 }
