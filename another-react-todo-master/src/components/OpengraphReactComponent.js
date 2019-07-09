@@ -29,7 +29,7 @@ export default class OpengraphReactComponent extends Component {
       <div>
         <div className="OpenBox">
           <div>
-            <img className="Image" src={image}  />
+            <img className="Image" src={image} />
           </div>
           <div className="TextBox">
             <div className="Title">
