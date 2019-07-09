@@ -4,7 +4,7 @@ import OpengraphReactComponent from './OpengraphReactComponent';
 
 class TextLine extends Component {
   render() {
-    const { text, color,checked } = this.props;
+    const { text, color, checked } = this.props;
     const opengraph = [];
     let txt = text;
     let regUrl2 = /^(((http(s?))\:\/\/)?)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/;
@@ -38,7 +38,12 @@ class TextLine extends Component {
                     if (url.match(leg)) {
                       opengraph.push({ url: url });
                     } else {
-                      opengraph.push({ url: 'www.' + url });
+                      console.log(url);
+                      if (url.includes('www.') || url.includes('WWW.')) {
+                        opengraph.push({ url: url });
+                      } else {
+                        opengraph.push({ url: 'www.' + url });
+                      }
                     }
                   }
                   return aTag(url);
