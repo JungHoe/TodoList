@@ -12,7 +12,7 @@ class TextLine extends Component {
     const aTag = url => {
       if (url.match(leg)) {
         return (
-          <a href={url} target="_blank" style={{ color: color }}>
+          <a href={url} target="_blank" style={{ color: color }} >
             {url}
           </a>
         );
@@ -26,7 +26,7 @@ class TextLine extends Component {
     };
 
     return (
-      <div className={` ${checked && 'checked'}`}style={{ color: color }}>
+      <div style={{ color: color }}>
         {/* 1차적으로 줄바꿈을 기준으로 나눈다. */}
         {txt.split('\n').map(line => {
           return (
