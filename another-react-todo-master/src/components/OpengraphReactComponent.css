@@ -18,12 +18,11 @@
 
 .TextBox {
   margin-left: 10px;
-  font-weight: bolder;
   display: inline-block;
 }
 
 a:link {
-  color: black;
+  color: blue;
   text-decoration: none;
 }
 a:visited {
@@ -32,5 +31,6 @@ a:visited {
 }
 a:hover {
   color: blue;
+  font-weight: bolder;
   text-decoration: none;
 }

@@ -25,6 +25,24 @@ export default class OpengraphReactComponent extends Component {
     const { site } = this.props;
     const { title, image, description } = this.state;
 
+    let leg = /(http(s)?:\/\/)([a-z0-9\w]+\.*)+[a-z0-9]{2,4}/gi;
+    let aTag = null;
+
+    // a Tag 조건부 렌더링 (http(s) or wwww)
+    if (site.match(leg)) {
+      aTag = (
+        <a href={site} target="_blank">
+          {title}
+        </a>
+      );
+    } else {
+      aTag = (
+        <a href={'//' + site} target="_blank">
+          {title}
+        </a>
+      );
+    }
+
     return (
       <div>
         <div className="OpenBox">
@@ -32,11 +50,7 @@ export default class OpengraphReactComponent extends Component {
             <img className="Image" src={image} />
           </div>
           <div className="TextBox">
-            <div className="Title">
-              <a href={'//' + site} target="_blank">
-                {title}
-              </a>
-            </div>
+            <div className="Title">{aTag}</div>
             <br />
             <span>{description}</span>
           </div>
