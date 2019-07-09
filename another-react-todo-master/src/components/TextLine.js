@@ -35,7 +35,11 @@ class TextLine extends Component {
               {line.split(' ').map(url => {
                 if (url.match(regUrl2)) {
                   if (opengraph.length < 1) {
-                    opengraph.push({ url: url });
+                    if (url.match(leg)) {
+                      opengraph.push({ url: url });
+                    } else {
+                      opengraph.push({ url: 'www.' + url });
+                    }
                   }
                   return aTag(url);
                 } else {
