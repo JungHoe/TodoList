@@ -1,11 +1,10 @@
 .OpenBox {
   display: inline-flex;
   background-color: whitesmoke;
-  height: 100px;
+
 }
 
 .Image {
-  height: 100px;
   width: 100px;
 }
 
@@ -31,4 +30,7 @@ a:hover {
   color: blue;
   text-decoration: none;
   font-weight: bolder;
+}
+.description{
+  color: black;
 }
