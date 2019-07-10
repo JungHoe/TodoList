@@ -12,7 +12,7 @@ export default class OpengraphReactComponent extends Component {
     let originUrl = this.props.site;
     let result = originUrl.replace(/.*?:\/\//g, '');
 
-    axios.get('http://localhost:8080/hello?url=' + result).then(response => {
+    axios.get('http://localhost:8080/metadata?url=' + result).then(response => {
       this.setState({
         title: response.data.title,
         image: response.data.image,
