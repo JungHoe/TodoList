@@ -8,11 +8,11 @@ export default class OpengraphReactComponent extends Component {
     description: null,
   };
 
-  componentDidMount(props) {
+  componentDidMount() {
     let originUrl = this.props.site;
     let result = originUrl.replace(/.*?:\/\//g, '');
 
-    axios.get('http://localhost:8080/hello?url=' + result).then(response => {
+    axios.get('http://localhost:8080/metadata?url=' + result).then(response => {
       this.setState({
         title: response.data.title,
         image: response.data.image,
@@ -29,7 +29,7 @@ export default class OpengraphReactComponent extends Component {
       <div>
         <div className="OpenBox">
           <div>
-            <img className="Image" src={image} />
+            <img className="Image" src={image} alt="opengraphImage"/>
           </div>
           <div className="TextBox">
             <div className="Title">
@@ -37,8 +37,8 @@ export default class OpengraphReactComponent extends Component {
                 {title}
               </a>
             </div>
-            <br />
-            <span>{description}</span>
+            <br/>
+            <span className="description">{description}</span>
           </div>
         </div>
       </div>
