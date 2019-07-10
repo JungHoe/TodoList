@@ -38,7 +38,7 @@ class TextLine extends Component {
                     if (url.match(leg)) {
                       opengraph.push({ url: url });
                     } else {
-                ``
+                      console.log(url);
                       if (url.includes('www.') || url.includes('WWW.')) {
                         opengraph.push({ url: url });
                       } else {

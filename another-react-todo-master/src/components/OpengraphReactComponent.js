@@ -8,7 +8,7 @@ export default class OpengraphReactComponent extends Component {
     description: null,
   };
 
-  componentDidMount() {
+  componentDidMount(props) {
     let originUrl = this.props.site;
     let result = originUrl.replace(/.*?:\/\//g, '');
 
@@ -29,7 +29,7 @@ export default class OpengraphReactComponent extends Component {
       <div>
         <div className="OpenBox">
           <div>
-            <img className="Image" src={image} alt="opengraphImage"/>
+            <img className="Image" src={image} />
           </div>
           <div className="TextBox">
             <div className="Title">
@@ -37,8 +37,8 @@ export default class OpengraphReactComponent extends Component {
                 {title}
               </a>
             </div>
-            <br/>
-            <span className="description">{description}</span>
+            <br />
+            <span>{description}</span>
           </div>
         </div>
       </div>

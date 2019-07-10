@@ -8,49 +8,48 @@ import moment from 'moment';
 import axios from 'axios';
 import { empty } from 'rxjs';
 import MakeModal from './components/MakeModal';
-import axios from 'axios';
 
 const colors = ['#343a40', '#9c36b5', '#ffd43b', '#e03131'];
+
 class App extends Component {
-  componentDidMount() {
-    axios.get('http://localhost:8080/').then(response => {
-      this.id = response.data.length + 1;
-      const todoLists = response.data.map(a => {
-        if (a.checked === 'n') {
-          a.checked = false;
-        } else {
-          a.checked = true;
-        }
-        if (a.useyn === 'n') {
-          a.useyn = false;
-        } else {
-          a.useyn = true;
-        }
-
-        return {
-          id: a.id,
-          text: a.text,
-          checked: a.checked,
-          color: a.color,
-          moment: moment(a.moment).format('LLL'),
-          useyn: a.useyn,
-          updateYn: false,
-        };
-      });
-      const newState = Object.assign({}, this.state, {
-        todos: todoLists,
-      });
-
-      this.setState(newState);
-    });
-  }
+  id = 3; // 이미 0,1,2 가 존재하므로 3으로 설정
 
   state = {
-    test: 0,
     getRemoveId: 0,
     modalIsOpen: false,
     input: empty,
-    todos: [],
+    todos: [
+      {
+        id: 0,
+        text: 'use Git',
+        checked: false,
+        color: '#343a40',
+        moment: moment()
+          .subtract(1, 'days')
+          .calendar(),
+        updateYn: false,
+      },
+      {
+        id: 1,
+        text: '밥먹기',
+        checked: true,
+        color: '#343a40',
+        moment: moment()
+          .subtract(2, 'days')
+          .calendar(),
+        updateYn: false,
+      },
+      {
+        id: 2,
+        text: '집가기',
+        checked: false,
+        color: '#343a40',
+        moment: moment()
+          .subtract(3, 'days')
+          .calendar(),
+        updateYn: false,
+      },
+    ],
     color: '#343a40',
     sortName: '오름차순↑',
     flag: true,
@@ -90,7 +89,6 @@ class App extends Component {
           }
         }),
     });
-    console.log(todos.id);
   };
 
   handleKeyPress = e => {
