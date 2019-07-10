@@ -5,7 +5,6 @@ import TodoItemList from './components/TodoItemList';
 import Palette from './components/Palette';
 import Sort from './components/listSort';
 import moment from 'moment';
-import axios from 'axios';
 import { empty } from 'rxjs';
 import MakeModal from './components/MakeModal';
 
@@ -15,8 +14,8 @@ class App extends Component {
   id = 3; // 이미 0,1,2 가 존재하므로 3으로 설정
 
   state = {
-    getRemoveId: 0,
-    modalIsOpen: false,
+    getRemoveId:0,
+    modalIsOpen:false,
     input: empty,
     todos: [
       {
@@ -65,6 +64,7 @@ class App extends Component {
     const { input, todos, color, flag } = this.state;
     if (input === empty) {
       alert('내용을 입력하여 주세요!');
+      console.log('브런치테스트');
       return;
     }
     this.setState({
@@ -184,7 +184,7 @@ class App extends Component {
     const index = todos.findIndex(todo => todo.id === id);
     const selected = todos[index];
     const nextTodos = [...todos];
-
+   
     if (updateText === '') {
       nextTodos[index] = {
         ...selected,
@@ -204,56 +204,44 @@ class App extends Component {
       todos: nextTodos,
     });
     console.log('update이벤트 속 컬러' + updateColor);
-    console.log('현재컬러' + todos[index].color);
+    console.log('현재컬러'+todos[index].color);
   };
 
-  openModal = id => {
-    this.setState({ modalIsOpen: true, getRemoveId: id });
-  };
+  openModal=(id)=> {
+    this.setState({modalIsOpen: true,getRemoveId:id});
+  }
 
-  closeModal = () => {
-    const { getRemoveId } = this.state;
+ 
+
+  closeModal=()=> {
+    const{getRemoveId}=this.state;
     this.handleRemove(getRemoveId);
-    this.setState({ modalIsOpen: false });
-  };
-  cancleModal = () => {
-    this.setState({ modalIsOpen: false });
-  };
+    this.setState({modalIsOpen: false});
+  }
+  cancleModal=()=> {
+    this.setState({modalIsOpen: false});
+  }
+ 
 
   render() {
-    const { input, todos, color, sortName, modalIsOpen } = this.state;
-    const {
-      handleChange,
-      handleCreate,
-      handleKeyPress,
-      handleToggle,
-      handleRemove,
-      handleSelectColor,
-      handleSort,
-      handleUpdateSet,
-      handleUpdate,
-      openModal,
-      closeModal,
-      cancleModal,
-    } = this;
+    const { input, todos, color, sortName,modalIsOpen} = this.state;
+    const { handleChange, handleCreate, handleKeyPress, 
+      handleToggle, handleRemove, handleSelectColor, handleSort, handleUpdateSet,
+       handleUpdate,openModal,closeModal,cancleModal } = this;
 
     return (
       <TodoListTemplate
         form={<Form value={input} onKeyPress={handleKeyPress} onChange={handleChange} onCreate={handleCreate} color={color} />}
-        palette={<Palette colors={colors} selected={color} onSelect={handleSelectColor} />}
+        palette={<Palette colors={colors} selected={color} onSelect={handleSelectColor}  />}
       >
         <Sort ascSort={handleSort} nowSort={sortName} />
 
-        <TodoItemList
-          todos={todos}
-          onToggle={handleToggle}
-          onRemove={handleRemove}
-          onUpdateSet={handleUpdateSet}
-          onUpdate={handleUpdate}
-          openModal={openModal}
-          colors={colors}
-        />
-        <MakeModal modalIsOpen={modalIsOpen} closeModal={closeModal} cancleModal={cancleModal} />
+
+        <TodoItemList todos={todos} onToggle={handleToggle} onRemove={handleRemove}
+         onUpdateSet={handleUpdateSet} onUpdate={handleUpdate} openModal={openModal} colors={colors} />
+      <MakeModal modalIsOpen={modalIsOpen} closeModal={closeModal} cancleModal={cancleModal}></MakeModal>
+
+
       </TodoListTemplate>
     );
   }
