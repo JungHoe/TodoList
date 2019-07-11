@@ -66,7 +66,7 @@ class App extends Component {
       method: 'POST',
       url: 'http://localhost:8080/insert',
       params: {
-        id: this.id++,
+        id: this.id + 1,
         text: input,
         color: color,
       },
