@@ -131,7 +131,6 @@ class App extends Component {
     });
 
     const nextTodos = [...todos]; // 배열을 복사
-
     // 기존의 값들을 복사하고, checked 값을 덮어쓰기
     nextTodos[index] = {
       ...selected,
@@ -145,6 +144,15 @@ class App extends Component {
 
   handleRemove = id => {
     const { todos } = this.state;
+
+    axios({
+      method: 'POST',
+      url: 'http://localhost:8080/delete',
+      params: {
+        id: id,
+      },
+    });
+
     this.setState({
       todos: todos.filter(todo => todo.id !== id),
     });
