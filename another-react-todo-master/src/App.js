@@ -22,7 +22,6 @@ class App extends Component {
         } else {
           a.checked = true;
         }
-
         return {
           id: a.id,
           text: a.text,
@@ -32,14 +31,11 @@ class App extends Component {
           useyn: a.useYn,
           updateYn: false,
         };
-       
       });
       const newState = Object.assign({}, this.state, {
         todos: todoLists,
       });
-
       this.setState(newState);
-     
     });
   }
 
@@ -79,7 +75,7 @@ class App extends Component {
         input: empty,
         todos: todos
           .concat({
-            id: ++this.id,
+            id: this.id++,
             text: input,
             checked: false,
             color,
@@ -222,9 +218,9 @@ class App extends Component {
     const selected = todos[index];
     const nextTodos = [...todos];
     if (selected.checked == true) {
-      checked = 'Y'
+      checked = 'Y';
     } else {
-      checked = 'N'
+      checked = 'N';
     }
     if (updateText === '') {
       nextTodos[index] = {
@@ -232,17 +228,17 @@ class App extends Component {
         color: updateColor,
         updateYn: false,
       };
-    
- axios({
-    method:"patch",
-    url:"http://localhost:8080/todoitem",
-    params:{
-      id:id,
-      text:selected.text,
-      color:updateColor,
-      checked:checked
-    }
-  })
+
+      axios({
+        method: 'patch',
+        url: 'http://localhost:8080/todoitem',
+        params: {
+          id: id,
+          text: selected.text,
+          color: updateColor,
+          checked: checked,
+        },
+      });
     } else {
       nextTodos[index] = {
         ...selected,
@@ -251,16 +247,15 @@ class App extends Component {
         updateYn: false,
       };
       axios({
-        method:"patch",
-        url:"http://localhost:8080/todoitem",
-        params:{
-          id:id,
-          text:updateText,
-          color:updateColor,
-          checked:checked
-        }
-      })
-    
+        method: 'patch',
+        url: 'http://localhost:8080/todoitem',
+        params: {
+          id: id,
+          text: updateText,
+          color: updateColor,
+          checked: checked,
+        },
+      });
     }
 
     this.setState({
