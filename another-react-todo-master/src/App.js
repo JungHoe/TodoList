@@ -7,48 +7,56 @@ import Sort from './components/listSort';
 import moment from 'moment';
 import { empty } from 'rxjs';
 import MakeModal from './components/MakeModal';
+import axios from 'axios';
+
+
+
 
 const colors = ['#343a40', '#9c36b5', '#ffd43b', '#e03131'];
-
 class App extends Component {
-  id = 3; // 이미 0,1,2 가 존재하므로 3으로 설정
+  componentDidMount() {
+
+    axios.get('http://localhost:8080/').then(response => {
+    this.id=response.data.length+1;
+      const todoLists = response.data.map(a => {
+        if (a.checked === 'n') {
+          a.checked = false;
+        } else {
+          a.checked = true;
+        }
+        if (a.useyn === 'n') {
+          a.useyn = false;
+        } else {
+          a.useyn = true;
+        }
+
+        return {
+          id: a.id,
+          text: a.text,
+          checked: a.checked,
+          color: a.color,
+          moment: moment(a.moment).format('LLL'),
+          useyn: a.useyn,
+          updateYn:false
+        }
+      })
+      const newState = Object.assign({}, this.state, {
+        todos: todoLists,
+      
+      });
+
+      this.setState(newState);
+  
+    });
+ 
+  }
 
   state = {
-    getRemoveId:0,
-    modalIsOpen:false,
+    test:0,
+    getRemoveId: 0,
+    modalIsOpen: false,
     input: empty,
-    todos: [
-      {
-        id: 0,
-        text: 'use Git',
-        checked: false,
-        color: '#343a40',
-        moment: moment()
-          .subtract(1, 'days')
-          .calendar(),
-        updateYn: false,
-      },
-      {
-        id: 1,
-        text: '밥먹기',
-        checked: true,
-        color: '#343a40',
-        moment: moment()
-          .subtract(2, 'days')
-          .calendar(),
-        updateYn: false,
-      },
-      {
-        id: 2,
-        text: '집가기',
-        checked: false,
-        color: '#343a40',
-        moment: moment()
-          .subtract(3, 'days')
-          .calendar(),
-        updateYn: false,
-      },
-    ],
+    todos: [],
     color: '#343a40',
     sortName: '오름차순↑',
     flag: true,
@@ -64,7 +72,6 @@ class App extends Component {
     const { input, todos, color, flag } = this.state;
     if (input === empty) {
       alert('내용을 입력하여 주세요!');
-      console.log('브런치테스트');
       return;
     }
     this.setState({
@@ -89,6 +96,7 @@ class App extends Component {
           }
         }),
     });
+    console.log(todos.id)
   };
 
   handleKeyPress = e => {
@@ -184,7 +192,7 @@ class App extends Component {
     const index = todos.findIndex(todo => todo.id === id);
     const selected = todos[index];
     const nextTodos = [...todos];
-   
+
     if (updateText === '') {
       nextTodos[index] = {
         ...selected,
@@ -204,42 +212,42 @@ class App extends Component {
       todos: nextTodos,
     });
     console.log('update이벤트 속 컬러' + updateColor);
-    console.log('현재컬러'+todos[index].color);
+    console.log('현재컬러' + todos[index].color);
   };
 
-  openModal=(id)=> {
-    this.setState({modalIsOpen: true,getRemoveId:id});
+  openModal = (id) => {
+    this.setState({ modalIsOpen: true, getRemoveId: id });
   }
 
- 
 
-  closeModal=()=> {
-    const{getRemoveId}=this.state;
+
+  closeModal = () => {
+    const { getRemoveId } = this.state;
     this.handleRemove(getRemoveId);
-    this.setState({modalIsOpen: false});
+    this.setState({ modalIsOpen: false });
   }
-  cancleModal=()=> {
-    this.setState({modalIsOpen: false});
+  cancleModal = () => {
+    this.setState({ modalIsOpen: false });
   }
- 
+
 
   render() {
-    const { input, todos, color, sortName,modalIsOpen} = this.state;
-    const { handleChange, handleCreate, handleKeyPress, 
+    const { input, todos, color, sortName, modalIsOpen } = this.state;
+    const { handleChange, handleCreate, handleKeyPress,
       handleToggle, handleRemove, handleSelectColor, handleSort, handleUpdateSet,
-       handleUpdate,openModal,closeModal,cancleModal } = this;
+      handleUpdate, openModal, closeModal, cancleModal } = this;
 
     return (
       <TodoListTemplate
         form={<Form value={input} onKeyPress={handleKeyPress} onChange={handleChange} onCreate={handleCreate} color={color} />}
-        palette={<Palette colors={colors} selected={color} onSelect={handleSelectColor}  />}
+        palette={<Palette colors={colors} selected={color} onSelect={handleSelectColor} />}
       >
         <Sort ascSort={handleSort} nowSort={sortName} />
 
 
         <TodoItemList todos={todos} onToggle={handleToggle} onRemove={handleRemove}
-         onUpdateSet={handleUpdateSet} onUpdate={handleUpdate} openModal={openModal} colors={colors} />
-      <MakeModal modalIsOpen={modalIsOpen} closeModal={closeModal} cancleModal={cancleModal}></MakeModal>
+          onUpdateSet={handleUpdateSet} onUpdate={handleUpdate} openModal={openModal} colors={colors} />
+        <MakeModal modalIsOpen={modalIsOpen} closeModal={closeModal} cancleModal={cancleModal}></MakeModal>
 
 
       </TodoListTemplate>
