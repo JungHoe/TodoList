@@ -40,7 +40,6 @@ class TodoItem extends Component {
             }}
           >
             수정
-          
           </div>
         ) : (
           <div
@@ -48,12 +47,9 @@ class TodoItem extends Component {
             onClick={() => {
               onUpdate(id, this.updateDom.state.updateText, this.updateDom.state.updateColor);
               restUpdate(id, this.updateDom.state.updateText, this.updateDom.state.updateColor);
-    
             }}
-            
           >
             완료
-            
           </div>
         )}
 

@@ -77,7 +77,7 @@ class App extends Component {
         input: empty,
         todos: todos
           .concat({
-            id: this.id++,
+            id: this.id + 1,
             text: input,
             checked: false,
             color,
@@ -192,6 +192,7 @@ class App extends Component {
     const index = todos.findIndex(todo => todo.id === id);
     const selected = todos[index];
 
+    console.log('수정모드 ID : ' + id);
     const nextTodos = [...todos];
     if (this.state.todos[index].checked) {
       this.setState({
