@@ -15,7 +15,7 @@ class App extends Component {
     axios.get('http://localhost:8080/').then(response => {
       this.id = response.data.totalCnt;
       const todoLists = response.data.todoList.map(a => {
-        if (a.checked === 'n') {
+        if (a.checked === 'N') {
           a.checked = false;
         } else {
           a.checked = true;
@@ -62,29 +62,38 @@ class App extends Component {
       alert('내용을 입력하여 주세요!');
       return;
     }
-    this.setState({
-      input: empty,
-      todos: todos
-        .concat({
-          id: this.id++,
-          text: input,
-          checked: false,
-          color,
-          moment: moment().format('LLL'),
-          updateYn: false,
-        })
-        .sort((a, b) => {
-          var leftArray = a.id;
-          var rightArray = b.id;
+    axios({
+      method: 'POST',
+      url: 'http://localhost:8080/insert',
+      params: {
+        id: this.id + 1,
+        text: input,
+        color: color,
+      },
+    }).then(
+      this.setState({
+        input: empty,
+        todos: todos
+          .concat({
+            id: this.id++,
+            text: input,
+            checked: false,
+            color,
+            moment: moment().format('LLL'),
+            updateYn: false,
+          })
+          .sort((a, b) => {
+            var leftArray = a.id;
+            var rightArray = b.id;
 
-          if (flag) {
-            return leftArray < rightArray ? -1 : leftArray > rightArray ? 1 : 0;
-          } else {
-            return leftArray < rightArray ? 1 : leftArray > rightArray ? -1 : 0;
-          }
-        }),
-    });
-    console.log(todos.id);
+            if (flag) {
+              return leftArray < rightArray ? -1 : leftArray > rightArray ? 1 : 0;
+            } else {
+              return leftArray < rightArray ? 1 : leftArray > rightArray ? -1 : 0;
+            }
+          }),
+      }),
+    );
   };
 
   handleKeyPress = e => {
@@ -100,13 +109,28 @@ class App extends Component {
 
   handleToggle = id => {
     const { todos } = this.state;
+    let checked;
 
     // 파라미터로 받은 id 를 가지고 몇번째 아이템인지 찾습니다.
     const index = todos.findIndex(todo => todo.id === id);
     const selected = todos[index]; // 선택한 객체
 
-    const nextTodos = [...todos]; // 배열을 복사
+    if (selected.checked == true) {
+      checked = 'N';
+    } else {
+      checked = 'Y';
+    }
 
+    axios({
+      method: 'POST',
+      url: 'http://localhost:8080/checked',
+      params: {
+        id: selected.id,
+        checked: checked,
+      },
+    });
+
+    const nextTodos = [...todos]; // 배열을 복사
     // 기존의 값들을 복사하고, checked 값을 덮어쓰기
     nextTodos[index] = {
       ...selected,
@@ -120,6 +144,15 @@ class App extends Component {
 
   handleRemove = id => {
     const { todos } = this.state;
+
+    axios({
+      method: 'POST',
+      url: 'http://localhost:8080/delete',
+      params: {
+        id: id,
+      },
+    });
+
     this.setState({
       todos: todos.filter(todo => todo.id !== id),
     });
