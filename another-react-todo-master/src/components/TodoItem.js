@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './TodoItem.css';
 import TextLine from './TextLine';
 import Update from './UpdateForm';
-import restUpdate from './UpdateRestComponent';
+
 class TodoItem extends Component {
   render() {
     const { text, checked, id, color, colors, onToggle, openModal, moment, updateYn, onUpdateSet, onUpdate } = this.props;
@@ -47,8 +47,6 @@ class TodoItem extends Component {
             className="update"
             onClick={() => {
               onUpdate(id, this.updateDom.state.updateText, this.updateDom.state.updateColor);
-              restUpdate(id, this.updateDom.state.updateText, this.updateDom.state.updateColor);
-    
             }}
             
           >
