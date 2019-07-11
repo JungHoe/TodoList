@@ -3,6 +3,12 @@ import React, { Component } from 'react';
 import './TodoItem.css';
 import TextLine from './TextLine';
 import Update from './UpdateForm';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrashAlt, faCheck } from '@fortawesome/free-solid-svg-icons';
+
+const editIcon = <FontAwesomeIcon icon={faEdit} color="#22b8cf" />;
+const deleteIcon = <FontAwesomeIcon icon={faTrashAlt} color="#ff6666" />;
+const doneIcon = <FontAwesomeIcon icon={faCheck} color="#00ff00" />;
 
 class TodoItem extends Component {
   render() {
@@ -10,10 +16,10 @@ class TodoItem extends Component {
 
     return (
       <div className="todo-item">
+        <div className="checking" onClick={() => onToggle(id)}>
+          {checked && <div className="check-mark">&#x2713;</div>}
+        </div>
         <div style={{ color }} className={'todo-text'}>
-          <div className="checking" onClick={() => onToggle(id)}>
-            {checked && <div className="check-mark">&#x2713;</div>}
-          </div>
           <div className={`todo-text`}>
             {updateYn === false ? (
               <TextLine text={text} color={color} checked={checked} />
@@ -39,22 +45,21 @@ class TodoItem extends Component {
               onUpdateSet(id);
             }}
           >
-            수정
+            {editIcon}
           </div>
         ) : (
           <div
             className="update"
             onClick={() => {
               onUpdate(id, this.updateDom.state.updateText, this.updateDom.state.updateColor);
-
             }}
           >
-            완료
+            {doneIcon}
           </div>
         )}
 
         <div className="remove" onClick={() => openModal(id)}>
-          &times;
+          {deleteIcon}
         </div>
         <div />
       </div>

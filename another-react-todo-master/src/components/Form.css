@@ -1,13 +1,14 @@
 .form {
   display: flex;
+  height: max-content;
 }
 
 .form textarea {
   flex: 1; /* 버튼을 뺀 빈 공간을 모두 채워줍니다 */
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   outline: none;
   border: none;
-  border-bottom: 1px solid #c5f6fa;
+  resize: none;
 }
 
 .create-button {

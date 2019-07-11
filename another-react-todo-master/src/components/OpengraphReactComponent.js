@@ -38,7 +38,7 @@ export default class OpengraphReactComponent extends Component {
               </a>
             </div>
             <br />
-            <span>{description}</span>
+            <div className="Description">{description}</div>
           </div>
         </div>
       </div>

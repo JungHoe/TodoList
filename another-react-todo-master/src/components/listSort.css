@@ -1,13 +1,12 @@
-
-.sortTest{
-    text-align:right;
-    margin-top:1rem;
-    margin-bottom:1rem;
-
+.sortTest {
+  text-align: right;
+  padding-top: 0.5rem;
+  margin-bottom: 1rem;
+  background-color: #fafafa;
+  color: blue;
+  font-weight: bold;
 }
-.sortTest:hover{
-opacity:0.5;
-text-decoration: underline;
 
-
+.sortTest:hover {
+  opacity: 0.5;
 }
