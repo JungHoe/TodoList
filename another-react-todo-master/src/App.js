@@ -211,24 +211,31 @@ class App extends Component {
 
   // 수정완료
   handleUpdate = (id, updateText, updateColor) => {
+    let checked;
     const { todos } = this.state;
     const index = todos.findIndex(todo => todo.id === id);
     const selected = todos[index];
     const nextTodos = [...todos];
-
+    if (selected.checked == true) {
+      checked = 'Y'
+    } else {
+      checked = 'N'
+    }
     if (updateText === '') {
       nextTodos[index] = {
         ...selected,
         color: updateColor,
         updateYn: false,
       };
+    
  axios({
     method:"patch",
     url:"http://localhost:8080/todoitem",
     params:{
       id:id,
       text:selected.text,
-      color:updateColor
+      color:updateColor,
+      checked:checked
     }
   })
     } else {
@@ -244,7 +251,8 @@ class App extends Component {
         params:{
           id:id,
           text:updateText,
-          color:updateColor
+          color:updateColor,
+          checked:checked
         }
       })
     
