@@ -7,9 +7,7 @@ export default class OpengraphReactComponent extends Component {
     image: null,
     description: null,
   };
-handleClick = ()=>{
-window.open("https://"+this.props.site)
-}
+
   componentDidMount(props) {
     let originUrl = this.props.site;
     let result = originUrl.replace(/.*?:\/\//g, '');
@@ -24,20 +22,20 @@ window.open("https://"+this.props.site)
   }
 
   render() {
-    const { site, } = this.props;
+    const { site } = this.props;
     const { title, image, description } = this.state;
 
     return (
       <div>
-        <div className="OpenBox" onClick={this.handleClick}>
+        <div className="OpenBox">
           <div>
             <img className="Image" src={image} />
           </div>
           <div className="TextBox">
             <div className="Title">
-           
+              <a href={'//' + site} target="_blank">
                 {title}
-            
+              </a>
             </div>
             <br />
             <span>{description}</span>

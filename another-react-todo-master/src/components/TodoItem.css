@@ -47,10 +47,6 @@ float:left;
   margin-right:1rem;
   margin-bottom:1rem;
 }
-.checking:hover{
-  border:1px solid  red;
-  transition-duration:0.5s;
-}
 
 .check-mark {
   display: inline;
