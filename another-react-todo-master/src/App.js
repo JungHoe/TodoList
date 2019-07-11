@@ -9,25 +9,16 @@ import { empty } from 'rxjs';
 import MakeModal from './components/MakeModal';
 import axios from 'axios';
 
-
-
-
 const colors = ['#343a40', '#9c36b5', '#ffd43b', '#e03131'];
 class App extends Component {
   componentDidMount() {
-
     axios.get('http://localhost:8080/').then(response => {
-    this.id=response.data.length+1;
-      const todoLists = response.data.map(a => {
+      this.id = response.data.totalCnt;
+      const todoLists = response.data.todoList.map(a => {
         if (a.checked === 'n') {
           a.checked = false;
         } else {
           a.checked = true;
-        }
-        if (a.useyn === 'n') {
-          a.useyn = false;
-        } else {
-          a.useyn = true;
         }
 
         return {
@@ -37,22 +28,19 @@ class App extends Component {
           color: a.color,
           moment: moment(a.moment).format('LLL'),
           useyn: a.useyn,
-          updateYn:false
-        }
-      })
+          updateYn: false,
+        };
+      });
       const newState = Object.assign({}, this.state, {
         todos: todoLists,
-      
       });
 
       this.setState(newState);
-  
     });
- 
   }
 
   state = {
-    test:0,
+    test: 0,
     getRemoveId: 0,
     modalIsOpen: false,
     input: empty,
@@ -96,7 +84,7 @@ class App extends Component {
           }
         }),
     });
-    console.log(todos.id)
+    console.log(todos.id);
   };
 
   handleKeyPress = e => {
@@ -215,27 +203,35 @@ class App extends Component {
     console.log('현재컬러' + todos[index].color);
   };
 
-  openModal = (id) => {
+  openModal = id => {
     this.setState({ modalIsOpen: true, getRemoveId: id });
-  }
-
-
+  };
 
   closeModal = () => {
     const { getRemoveId } = this.state;
     this.handleRemove(getRemoveId);
     this.setState({ modalIsOpen: false });
-  }
+  };
   cancleModal = () => {
     this.setState({ modalIsOpen: false });
-  }
-
+  };
 
   render() {
     const { input, todos, color, sortName, modalIsOpen } = this.state;
-    const { handleChange, handleCreate, handleKeyPress,
-      handleToggle, handleRemove, handleSelectColor, handleSort, handleUpdateSet,
-      handleUpdate, openModal, closeModal, cancleModal } = this;
+    const {
+      handleChange,
+      handleCreate,
+      handleKeyPress,
+      handleToggle,
+      handleRemove,
+      handleSelectColor,
+      handleSort,
+      handleUpdateSet,
+      handleUpdate,
+      openModal,
+      closeModal,
+      cancleModal,
+    } = this;
 
     return (
       <TodoListTemplate
@@ -244,12 +240,16 @@ class App extends Component {
       >
         <Sort ascSort={handleSort} nowSort={sortName} />
 
-
-        <TodoItemList todos={todos} onToggle={handleToggle} onRemove={handleRemove}
-          onUpdateSet={handleUpdateSet} onUpdate={handleUpdate} openModal={openModal} colors={colors} />
-        <MakeModal modalIsOpen={modalIsOpen} closeModal={closeModal} cancleModal={cancleModal}></MakeModal>
-
-
+        <TodoItemList
+          todos={todos}
+          onToggle={handleToggle}
+          onRemove={handleRemove}
+          onUpdateSet={handleUpdateSet}
+          onUpdate={handleUpdate}
+          openModal={openModal}
+          colors={colors}
+        />
+        <MakeModal modalIsOpen={modalIsOpen} closeModal={closeModal} cancleModal={cancleModal} />
       </TodoListTemplate>
     );
   }
