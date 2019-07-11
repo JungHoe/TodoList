@@ -189,10 +189,9 @@ class App extends Component {
   // 수정모드 전환
   handleUpdateSet = id => {
     const { todos } = this.state;
+
     const index = todos.findIndex(todo => todo.id === id);
     const selected = todos[index];
-
-    console.log('수정모드 ID : ' + id);
     const nextTodos = [...todos];
     if (this.state.todos[index].checked) {
       this.setState({
