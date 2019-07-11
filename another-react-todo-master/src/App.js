@@ -32,12 +32,14 @@ class App extends Component {
           useyn: a.useyn,
           updateYn: false,
         };
+       
       });
       const newState = Object.assign({}, this.state, {
         todos: todoLists,
       });
 
       this.setState(newState);
+     
     });
   }
 
@@ -222,6 +224,15 @@ class App extends Component {
         color: updateColor,
         updateYn: false,
       };
+ axios({
+    method:"patch",
+    url:"http://localhost:8080/todoitem",
+    params:{
+      id:id,
+      text:selected.text,
+      color:updateColor
+    }
+  })
     } else {
       nextTodos[index] = {
         ...selected,
@@ -229,6 +240,16 @@ class App extends Component {
         color: updateColor,
         updateYn: false,
       };
+      axios({
+        method:"patch",
+        url:"http://localhost:8080/todoitem",
+        params:{
+          id:id,
+          text:updateText,
+          color:updateColor
+        }
+      })
+    
     }
 
     this.setState({
