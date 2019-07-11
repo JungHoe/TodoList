@@ -9,6 +9,8 @@ import { empty } from 'rxjs';
 import MakeModal from './components/MakeModal';
 import axios from 'axios';
 
+// Final - 2019-07-11-13:59
+
 const colors = ['#343a40', '#9c36b5', '#ffd43b', '#e03131'];
 class App extends Component {
   componentDidMount() {
@@ -77,7 +79,7 @@ class App extends Component {
         input: empty,
         todos: todos
           .concat({
-            id: this.id++,
+            id: this.id + 1,
             text: input,
             checked: false,
             color,
@@ -192,6 +194,7 @@ class App extends Component {
     const index = todos.findIndex(todo => todo.id === id);
     const selected = todos[index];
 
+    console.log('수정모드 ID : ' + id);
     const nextTodos = [...todos];
     if (this.state.todos[index].checked) {
       this.setState({

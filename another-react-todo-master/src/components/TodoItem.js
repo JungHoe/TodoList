@@ -40,18 +40,16 @@ class TodoItem extends Component {
             }}
           >
             수정
-          
           </div>
         ) : (
           <div
             className="update"
             onClick={() => {
               onUpdate(id, this.updateDom.state.updateText, this.updateDom.state.updateColor);
+
             }}
-            
           >
             완료
-            
           </div>
         )}
 
