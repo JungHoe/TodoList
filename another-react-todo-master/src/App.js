@@ -29,7 +29,7 @@ class App extends Component {
           checked: a.checked,
           color: a.color,
           moment: moment(a.moment).format('LLL'),
-          useyn: a.useyn,
+          useyn: a.useYn,
           updateYn: false,
         };
        
@@ -70,7 +70,7 @@ class App extends Component {
       method: 'POST',
       url: 'http://localhost:8080/insert',
       params: {
-        id: this.id + 1,
+        id: this.id+1,
         text: input,
         color: color,
       },
@@ -79,7 +79,7 @@ class App extends Component {
         input: empty,
         todos: todos
           .concat({
-            id: this.id + 1,
+            id: ++this.id,
             text: input,
             checked: false,
             color,
@@ -87,17 +87,20 @@ class App extends Component {
             updateYn: false,
           })
           .sort((a, b) => {
-            var leftArray = a.id;
-            var rightArray = b.id;
+            var leftArray = a.id
+            var rightArray = b.id
 
             if (flag) {
               return leftArray < rightArray ? -1 : leftArray > rightArray ? 1 : 0;
             } else {
               return leftArray < rightArray ? 1 : leftArray > rightArray ? -1 : 0;
             }
-          }),
+          }
+         
+          ),
       }),
     );
+    console.log(todos);
   };
 
   handleKeyPress = e => {
