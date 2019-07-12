@@ -2,7 +2,7 @@ import React from 'react';
 import './listSort.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faListOl, faCaretUp, faCaretDown, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
+import { faListOl, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
 
 const upIcon = <FontAwesomeIcon icon={faSortUp} color="#22b8cf" size="sm" />;
 const downeIcon = <FontAwesomeIcon icon={faSortDown} color="#22b8cf" size="sm" />;

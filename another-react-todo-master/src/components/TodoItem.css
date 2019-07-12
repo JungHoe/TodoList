@@ -49,9 +49,13 @@
   float: left;
   width: 2rem;
   height: 2rem;
-  border: 1px solid gray;
+  border: 3px solid gray;
   margin-right: 1rem;
-  border-radius: 1rem;
+  border-radius: 10%;
+}
+.checking:hover{
+  transition-duration: 1s;
+  border:3px solid rgb(25, 151, 255);
 }
 
 .check-mark {
@@ -69,7 +73,9 @@ a {
 }
 
 .date {
+  text-align: right;
   margin-top: 2px;
-  font-size: 0.1rem;
+  margin-right: 10px;
+  font-size: 0.6rem;
   color: #666666;
 }

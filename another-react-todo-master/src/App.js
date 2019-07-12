@@ -9,7 +9,7 @@ import { empty } from 'rxjs';
 import MakeModal from './components/MakeModal';
 import axios from 'axios';
 
-// Final - 2019-07-11-13:59
+
 
 const colors = ['#343a40', '#ff0000', '#ff9900', '#ffff00', '#008000', '#0033cc', '#000066', '#ff3399'];
 
@@ -76,7 +76,7 @@ class App extends Component {
         input: empty,
         todos: todos
           .concat({
-            id: this.id++,
+            id: ++this.id,
             text: input,
             checked: false,
             color,
@@ -119,7 +119,7 @@ class App extends Component {
     const index = todos.findIndex(todo => todo.id === id);
     const selected = todos[index]; // 선택한 객체
 
-    if (selected.checked == true) {
+    if (selected.checked === true) {
       checked = 'N';
     } else {
       checked = 'Y';
@@ -217,7 +217,7 @@ class App extends Component {
     const index = todos.findIndex(todo => todo.id === id);
     const selected = todos[index];
     const nextTodos = [...todos];
-    if (selected.checked == true) {
+    if (selected.checked === true) {
       checked = 'Y';
     } else {
       checked = 'N';
