@@ -12,22 +12,29 @@
 }
 
 /* todo-item 에 마우스가 있을때만 .remove 보이기 */
-.todo-item:hover .remove {
-  opacity: 1;
+.remove:hover {
+  opacity: 2;
+}
+
+.update:hover {
+  opacity: 2;
 }
 
 /* todo-item 사이에 윗 테두리 */
 .todo-item + .todo-item {
-  border-top: 1px solid #f1f3f5;
+  border-top: 1px solid rgb(180, 180, 180);
 }
 
-
 .remove {
-  margin-right: 1rem;
-  margin-left:1rem;
-  color: #e64980;
+  margin-left: 1rem;
   font-weight: 600;
-  opacity: 0.5;
+  opacity: 0.2;
+}
+
+.update {
+  margin-left: 0.5rem;
+  font-weight: 600;
+  opacity: 0.2;
 }
 
 .todo-text {
@@ -37,30 +44,32 @@
 
 .checked {
   text-decoration: line-through;
- 
 }
-.checking{
-float:left;
+.checking {
+  float: left;
   width: 2rem;
   height: 2rem;
-  border:1px solid  black;
-  margin-right:1rem;
-  margin-bottom:1rem;
+  border: 1px solid gray;
+  margin-right: 1rem;
+  border-radius: 1rem;
 }
 
 .check-mark {
   display: inline;
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   line-height: 2rem;
   margin-left: 0.5rem;
-  color: red;
+  color: blue;
   font-weight: 800;
 }
-a{
+
+a {
   text-decoration: none;
 }
-.date{
-  font-size:10px;
-  color:#868e96;
+
+.date {
+  margin-top: 2px;
+  font-size: 0.1rem;
+  color: #666666;
 }

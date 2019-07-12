@@ -1,13 +1,15 @@
-
-.sortTest{
-    text-align:right;
-    margin-top:1rem;
-    margin-bottom:1rem;
-
+.firstLine {
+  text-align: left;
 }
-.sortTest:hover{
-opacity:0.5;
-text-decoration: underline;
 
+.sortTest {
+  text-align: right;
+  padding-top: 0.5rem;
+  margin-bottom: 1rem;
+  background-color: #fafafa;
+  margin-right: 1rem;
+}
 
+.sortTest:hover {
+  opacity: 0.5;
 }
