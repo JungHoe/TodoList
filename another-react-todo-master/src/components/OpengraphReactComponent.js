@@ -29,7 +29,9 @@ export default class OpengraphReactComponent extends Component {
       <div>
         <div className="OpenBox">
           <div>
-            <img className="Image" src={image} />
+            <a href={'//' + site} target="_blank">
+              <img className="Image" src={image} />
+            </a>
           </div>
           <div className="TextBox">
             <div className="Title">

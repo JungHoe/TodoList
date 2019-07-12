@@ -1,10 +1,13 @@
+.firstLine {
+  text-align: left;
+}
+
 .sortTest {
   text-align: right;
   padding-top: 0.5rem;
   margin-bottom: 1rem;
   background-color: #fafafa;
-  color: blue;
-  font-weight: bold;
+  margin-right: 1rem;
 }
 
 .sortTest:hover {

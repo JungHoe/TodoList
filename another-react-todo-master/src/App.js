@@ -12,6 +12,7 @@ import axios from 'axios';
 // Final - 2019-07-11-13:59
 
 const colors = ['#343a40', '#ff0000', '#ff9900', '#ffff00', '#008000', '#0033cc', '#000066', '#ff3399'];
+
 class App extends Component {
   componentDidMount() {
     axios.get('http://localhost:8080/').then(response => {
@@ -46,7 +47,7 @@ class App extends Component {
     input: empty,
     todos: [],
     color: '#343a40',
-    sortName: '오름차순↑',
+    sortName: '오름차순',
     flag: true,
   };
 
@@ -167,7 +168,7 @@ class App extends Component {
     const { todos, flag } = this.state;
 
     this.setState({
-      sortName: this.state.sortName === '오름차순↑' ? '내림차순↓' : '오름차순↑',
+      sortName: this.state.sortName === '오름차순' ? '내림차순' : '오름차순',
       todos: todos.sort((a, b) => {
         var leftArray = a.id;
         var rightArray = b.id;

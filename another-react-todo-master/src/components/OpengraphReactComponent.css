@@ -3,14 +3,16 @@
   background-color: white;
   width: auto;
   height: 100px;
-  margin-top: 0.3rem;
+  margin-top: 1rem;
   border: #adadad solid 1px;
+  border-radius: 1.1em;
 }
 
 .Image {
   height: 100px;
   width: 100px;
   border-right: #adadad solid 1px;
+  border-radius: 1em 0em 0em 1em;
 }
 
 .Title {
@@ -21,8 +23,8 @@
 }
 
 .TextBox {
-  padding: 5px;
-  margin-top: 5px;
+  margin-top: 3px;
+  margin-left: 5px;
   width: auto;
 }
 
@@ -38,6 +40,7 @@
   max-height: 80px;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: black;
 }
 
 a:link {
@@ -45,11 +48,10 @@ a:link {
   text-decoration: none;
 }
 a:visited {
-  color: black;
+  color: blue;
   text-decoration: none;
 }
 a:hover {
-  color: blue;
+  color: black;
   text-decoration: none;
-  font-weight: bolder;
 }
