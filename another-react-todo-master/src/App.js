@@ -29,6 +29,7 @@ class App extends Component {
           text: a.text,
           checked: a.checked,
           color: a.color,
+          image: a.image,
           moment: moment(a.moment).format('LLL'),
           useyn: a.useYn,
           updateYn: false,
@@ -52,7 +53,7 @@ class App extends Component {
     flag: true,
     uploading: false,
     image: null,
-    imgSrc: "",
+    imgSrc: '',
   };
 
   onChangeImg = e => {
@@ -86,24 +87,21 @@ class App extends Component {
     
     const files = Array.from(this.state.image);
     const formData = new FormData()
-    files.forEach((file, i) => {
-      formData.append(i, file)
-    })
+    
+    formData.append("id", this.id+1)
+    formData.append("text", input)
+    formData.append("color", color)
+    formData.append("fileName", files[0].name)
+    formData.append("image", files[0], files[0].name)
 
-    axios({
-      method: 'POST',
-      url: 'http://localhost:8080/insert',
-      params: {
-        id: this.id+1,
-        text: input,
-        color: color,
-        formData
-      },
-      headers: {'Content-Type': 'multipart/form-data'}
-    }).then(
+    axios.post('http://localhost:8080/insert',
+      formData,
+      {headers: {'Content-Type': 'multipart/form-data'}}
+    ).then(
       this.setState({
         input: empty,
         image: null,
+        imgSrc: '',
         todos: todos
           .concat({
             id: ++this.id,
@@ -112,6 +110,7 @@ class App extends Component {
             color,
             moment: moment().format('LLL'),
             updateYn: false,
+            image: this.id+1+'_'+files[0].name,
           })
           .sort((a, b) => {
             var leftArray = a.id

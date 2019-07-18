@@ -4,7 +4,7 @@ import OpengraphReactComponent from './OpengraphReactComponent';
 
 class TextLine extends Component {
   render() {
-    const { text, color, checked } = this.props;
+    const { text, color, checked, image } = this.props;
     const opengraph = [];
     let txt = text;
     let regUrl2 = /^(((http(s?))\:\/\/)?)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/;
@@ -24,6 +24,20 @@ class TextLine extends Component {
         );
       }
     };
+
+    const imagearea = () =>{
+      let path = 'C:\\Users\\korea\\git\\starter\\files\\';
+      if(image == null){
+        return(<div></div>)
+      }else{
+        return(
+          <section>
+            <img src={path+image} />
+          </section>
+
+        );
+      }
+    }
 
     return (
       <div style={{ color: color }}>
@@ -60,6 +74,7 @@ class TextLine extends Component {
             return <OpengraphReactComponent site={meta.url} />;
           })}
         </div>
+          {imagearea()}
       </div>
     );
   }

@@ -12,7 +12,7 @@ const doneIcon = <FontAwesomeIcon icon={faCheck} color="#00ff00" />;
 
 class TodoItem extends Component {
   render() {
-    const { text, checked, id, color, colors, onToggle, openModal, moment, updateYn, onUpdateSet, onUpdate } = this.props;
+    const { text, checked, id, color, colors, onToggle, openModal, moment, updateYn, onUpdateSet, onUpdate, image } = this.props;
 
     return (
       <div className="todo-item">
@@ -22,7 +22,7 @@ class TodoItem extends Component {
         <div style={{ color }} className={'todo-text'}>
           <div className={`todo-text`}>
             {updateYn === false ? (
-              <TextLine text={text} color={color} checked={checked} />
+              <TextLine text={text} color={color} checked={checked} image={image}/>
             ) : (
               <div>
                 <Update
