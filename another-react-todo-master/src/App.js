@@ -285,7 +285,8 @@ console.log(this.state.upload[0]);
       pictures: this.state.pictures.concat(pictureFiles),
       upload:pictureDataURLs
   });
-  
+    console.log("1"+this.state.pictures);
+    console.log("2"+this.state.upload);
   }
 
   render() {
