@@ -49,6 +49,8 @@ class App extends Component {
     color: '#343a40',
     sortName: '오름차순',
     flag: true,
+    pictures: [],
+    upload:[]
   };
 
   handleChange = e => {
@@ -95,9 +97,10 @@ class App extends Component {
           }
          
           ),
+          
       }),
     );
-    console.log(todos);
+console.log(this.state.upload[0]);
   };
 
   handleKeyPress = e => {
@@ -277,9 +280,16 @@ class App extends Component {
   cancleModal = () => {
     this.setState({ modalIsOpen: false });
   };
+  handleOndrop = (pictureFiles, pictureDataURLs) =>{
+    this.setState({
+      pictures: this.state.pictures.concat(pictureFiles),
+      upload:pictureDataURLs
+  });
+  
+  }
 
   render() {
-    const { input, todos, color, sortName, modalIsOpen } = this.state;
+    const { input, todos, color, sortName, modalIsOpen} = this.state;
     const {
       handleChange,
       handleCreate,
@@ -293,12 +303,15 @@ class App extends Component {
       openModal,
       closeModal,
       cancleModal,
+      handleOndrop
     } = this;
 
     return (
       <TodoListTemplate
-        form={<Form value={input} onKeyPress={handleKeyPress} onChange={handleChange} onCreate={handleCreate} color={color} />}
+        form={<Form value={input} onKeyPress={handleKeyPress} onChange={handleChange} 
+        onCreate={handleCreate} color={color} onDrop={handleOndrop}/>}
         palette={<Palette colors={colors} selected={color} onSelect={handleSelectColor} />}
+     
       >
         <Sort ascSort={handleSort} nowSort={sortName} />
 
