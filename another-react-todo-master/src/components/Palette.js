@@ -10,10 +10,6 @@ const Palette = ({ colors, selected, onSelect }) => {
   return (
     <div>
       <div className="palette">{colorList}</div>
-      <div style={{ height: '20px' }}>
-        <span className="test1">Unimportant</span>
-        <span className="test2">Important</span>
-      </div>
     </div>
   );
 };

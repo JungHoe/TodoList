@@ -1,12 +1,45 @@
-h2{
- 	  color:red;
-  text-align: CENTER;
-}	
-.Modal{
-  padding: 10px;
-width:300px;
- margin:auto;
+h2 {
+  font-size: 1.3rem;
+  color: black;
 }
-.Modal button{
-  margin-left:50px;
- }
+
+.btnGroup {
+  margin-top: -0.5rem;
+  text-align: center;
+}
+
+button {
+  background-color: whitesmoke;
+  width: 100px;
+  height: 30px;
+}
+
+.deleteBtn {
+  margin: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: gray;
+  border-radius: 0.3rem;
+}
+
+.deleteBtn:hover {
+  border: #22b8cf solid 2px;
+  color: black;
+  border-radius: 0.3rem;
+  font-weight: bold;
+}
+
+.cancleBtn {
+  margin: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: gray;
+  border-radius: 0.3rem;
+}
+
+.cancleBtn:hover {
+  border: #22b8cf solid 2px;
+  color: black;
+  border-radius: 0.3rem;
+  font-weight: bold;
+}

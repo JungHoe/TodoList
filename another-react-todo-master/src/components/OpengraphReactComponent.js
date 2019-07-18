@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import './OpengraphReactComponent.css';
 import axios from 'axios';
+import Dotdotdot from 'react-dotdotdot'
 export default class OpengraphReactComponent extends Component {
   state = {
     title: null,
+    
     image: null,
     description: null,
   };
@@ -31,7 +33,9 @@ export default class OpengraphReactComponent extends Component {
       <div>
       <div className="OpenBox" onClick={this.handleClick}>
           <div>
-            <img className="Image" src={image} />
+          
+              <img className="Image" src={image} />
+           
           </div>
           <div className="TextBox">
             <div className="Title">
@@ -40,7 +44,9 @@ export default class OpengraphReactComponent extends Component {
               </a>
             </div>
             <br />
-            <span>{description}</span>
+            <Dotdotdot clamp={4}>
+            {description}
+            </Dotdotdot>
           </div>
         </div>
       </div>
