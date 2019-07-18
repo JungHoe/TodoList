@@ -126,7 +126,7 @@ class App extends Component {
     }
 
     axios({
-      method: 'POST',
+      method: 'PATCH',
       url: 'http://localhost:8080/checked',
       params: {
         id: selected.id,
@@ -149,7 +149,7 @@ class App extends Component {
     const { todos } = this.state;
 
     axios({
-      method: 'POST',
+      method: 'DELETE',
       url: 'http://localhost:8080/delete',
       params: {
         id: id,
