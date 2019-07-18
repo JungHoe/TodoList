@@ -1,21 +1,42 @@
 import React from 'react';
 import './Form.css';
-import File from './File'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faImage } from '@fortawesome/free-solid-svg-icons'
 
-const Form = ({ value, onChange, onCreate, onKeyPress, color,onDrop }) => {
+
+
+const Form = ({ value, onChange, onCreate, onKeyPress, color, onChangeImg, imgSrc }) => {
+
+  const preview = () =>{
+    if(imgSrc == ""){
+      return(<div></div>)
+    }else{
+      return(
+        <section>
+          <img id="previewImg" src={imgSrc}></img>
+        </section>
+      )
+    }
+
+  }
+ 
   return (
+    <div>
     <div className="form">
-      <div className="firstWrap">
       <textarea value={value} onChange={onChange} onKeyPress={onKeyPress} style={{ color }} placeholder="오늘은 무엇을 해 볼 까요?" />
       <div className="create-button" onClick={onCreate}>
         추가
       </div>
-      </div>
-      <div className="secondWrap">
-      {<File onDrop={onDrop}></File>}
-      </div>
-     </div>
-    
+      <div className='button'>
+        {/* <label htmlFor='single'>
+          <FontAwesomeIcon icon={faImage} color='#3B5998' size='1x' />
+        </label> */}
+        <input type='file' id='single' onChange={onChangeImg}/> 
+      </div>         
+    </div>
+    <br/>
+      <preview></preview>
+    </div>
   );
 };
 

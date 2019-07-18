@@ -8,6 +8,7 @@ import moment from 'moment';
 import { empty } from 'rxjs';
 import MakeModal from './components/MakeModal';
 import axios from 'axios';
+import { faAssistiveListeningSystems } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -49,9 +50,26 @@ class App extends Component {
     color: '#343a40',
     sortName: '오름차순',
     flag: true,
-    pictures: [],
-    upload:[]
+    uploading: false,
+    image: null,
+    imgSrc: "",
   };
+
+  onChangeImg = e => {
+    this.setState({
+      image: e.target.files
+    });
+    
+    let file = e.target.files[0]
+    let reader = new FileReader();
+
+    reader.readAsDataURL(file)
+    reader.onloadend = () => {
+      this.setState({
+        imgSrc: reader.result
+      })
+    }
+  } 
 
   handleChange = e => {
     this.setState({
@@ -65,6 +83,13 @@ class App extends Component {
       alert('내용을 입력하여 주세요!');
       return;
     }
+    
+    const files = Array.from(this.state.image);
+    const formData = new FormData()
+    files.forEach((file, i) => {
+      formData.append(i, file)
+    })
+
     axios({
       method: 'POST',
       url: 'http://localhost:8080/insert',
@@ -72,10 +97,13 @@ class App extends Component {
         id: this.id+1,
         text: input,
         color: color,
+        formData
       },
+      headers: {'Content-Type': 'multipart/form-data'}
     }).then(
       this.setState({
         input: empty,
+        image: null,
         todos: todos
           .concat({
             id: ++this.id,
@@ -95,12 +123,10 @@ class App extends Component {
               return leftArray < rightArray ? 1 : leftArray > rightArray ? -1 : 0;
             }
           }
-         
           ),
           
       }),
     );
-console.log(this.state.upload[0]);
   };
 
   handleKeyPress = e => {
@@ -288,7 +314,7 @@ console.log(this.state.upload[0]);
   }
 
   render() {
-    const { input, todos, color, sortName, modalIsOpen} = this.state;
+    const { input, todos, color, sortName, modalIsOpen, imgSrc} = this.state;
     const {
       handleChange,
       handleCreate,
@@ -302,13 +328,13 @@ console.log(this.state.upload[0]);
       openModal,
       closeModal,
       cancleModal,
-      handleOndrop
+      onChangeImg,
     } = this;
 
     return (
       <TodoListTemplate
         form={<Form value={input} onKeyPress={handleKeyPress} onChange={handleChange} 
-        onCreate={handleCreate} color={color} onDrop={handleOndrop}/>}
+        onCreate={handleCreate} color={color} onChangeImg={onChangeImg} imgSrc={imgSrc}/>}
         palette={<Palette colors={colors} selected={color} onSelect={handleSelectColor} />}
      
       >
