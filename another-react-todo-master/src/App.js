@@ -53,7 +53,7 @@ class App extends Component {
     flag: true,
     uploading: false,
     image: null,
-    imgSrc: '',
+    imgSrc: null,
   };
 
   onChangeImg = e => {
@@ -91,7 +91,7 @@ class App extends Component {
     formData.append("id", this.id+1)
     formData.append("text", input)
     formData.append("color", color)
-
+    
     if(this.state.image != null){
       const files = Array.from(this.state.image);
       formData.append("fileName", files[0].name)
@@ -106,7 +106,7 @@ class App extends Component {
       this.setState({
         input: empty,
         image: null,
-        imgSrc: '',
+        imgSrc: null,
         todos: todos
           .concat({
             id: ++this.id,
@@ -120,7 +120,6 @@ class App extends Component {
           .sort((a, b) => {
             var leftArray = a.id
             var rightArray = b.id
-
             if (flag) {
               return leftArray < rightArray ? -1 : leftArray > rightArray ? 1 : 0;
             } else {
@@ -128,7 +127,6 @@ class App extends Component {
             }
           }
           ),
-          
       }),
       window.location.reload()
     );
@@ -295,8 +293,6 @@ class App extends Component {
     this.setState({
       todos: nextTodos,
     });
-    console.log('update이벤트 속 컬러' + updateColor);
-    console.log('현재컬러' + todos[index].color);
   };
 
   openModal = id => {
