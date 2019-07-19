@@ -8,7 +8,7 @@ import { faImage } from '@fortawesome/free-solid-svg-icons'
 const Form = ({ value, onChange, onCreate, onKeyPress, color, onChangeImg, imgSrc, imgOnClick }) => {
 
   const preview = () =>{
-    if(imgSrc == ''){
+    if(imgSrc == null){
       return(<div></div>)
     }else{
       return(

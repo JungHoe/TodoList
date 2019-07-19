@@ -27,13 +27,12 @@ class TextLine extends Component {
     };
 
     const imagearea = () =>{
-      let path = 'http://localhost:8080/image?fileName=';
       if(image == null){
         return(<div></div>)
       }else{
         return(
           <section>
-            <img src={path+image} />
+            <img src={image} />
           </section>
         );
       }

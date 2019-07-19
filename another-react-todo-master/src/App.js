@@ -79,7 +79,7 @@ class App extends Component {
   };
 
   handleCreate = () => {
-    const { input, todos, color, flag } = this.state;
+    const { input, todos, color, flag, imgSrc } = this.state;
     let fileName = null;
     
     if (input === empty) {
@@ -115,7 +115,7 @@ class App extends Component {
             color,
             moment: moment().format('LLL'),
             updateYn: false,
-            image: fileName,
+            image: imgSrc,
           })
           .sort((a, b) => {
             var leftArray = a.id
@@ -128,7 +128,6 @@ class App extends Component {
           }
           ),
       }),
-      window.location.reload()
     );
   };
 
