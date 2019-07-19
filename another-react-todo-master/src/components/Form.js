@@ -12,8 +12,11 @@ const Form = ({ value, onChange, onCreate, onKeyPress, color, onChangeImg, imgSr
       return(<div></div>)
     }else{
       return(
-        <section>
-          <img className="previewImg" src={imgSrc}></img>
+        <section className='imgSection'>
+          <label htmlFor='previewImg' >
+            <FontAwesomeIcon className='previewBtnBox' icon={faImage} color='#3B5998' size='3x' />
+          </label>
+          <img id='previewImg' className="previewImg" src={imgSrc}></img>
         </section>
       )
     }

@@ -56,21 +56,30 @@ class App extends Component {
     imgSrc: null,
   };
 
-  onChangeImg = e => {
+  onChangeImg = e => {    
+    console.log(e.target.value)
+
     this.setState({
       image: e.target.files
     });
     
-    let file = e.target.files[0]
-    let reader = new FileReader();
 
-    reader.readAsDataURL(file)
-    reader.onloadend = () => {
-      this.setState({
-        imgSrc: reader.result
-      })
+    if(e.target.value != null && e.target.value != ""){
+      let file = e.target.files[0]
+      let reader = new FileReader();
+  
+      reader.readAsDataURL(file)
+      reader.onloadend = () => {
+        this.setState({
+          imgSrc: reader.result
+        })
+      }
     }
   } 
+
+  imgOnClick = e => {
+
+  }
 
   handleChange = e => {
     this.setState({

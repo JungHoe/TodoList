@@ -11,6 +11,15 @@
   resize: none;
 }
 
+.imgSection{
+  position: relative;
+}
+
+.previewBtnBox{
+  position: absolute;
+  right: 0;
+}
+
 .previewBox{
   text-align: center;
 }
