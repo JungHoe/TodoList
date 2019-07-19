@@ -22,7 +22,10 @@ class TodoItem extends Component {
         <div style={{ color }} className={'todo-text'}>
           <div className={`todo-text`}>
             {updateYn === false ? (
+              <div>
               <TextLine text={text} color={color} checked={checked} image={image}/>
+              <div className="date">{moment} 작성됨</div>
+              </div>
             ) : (
               <div>
                 <Update
@@ -36,7 +39,6 @@ class TodoItem extends Component {
               </div>
             )}
           </div>
-          <div className="date">{moment} 작성됨</div>
         </div>
         {updateYn === false ? (
           <div

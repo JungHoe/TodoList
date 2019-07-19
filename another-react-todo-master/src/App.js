@@ -80,19 +80,24 @@ class App extends Component {
 
   handleCreate = () => {
     const { input, todos, color, flag } = this.state;
+    let fileName = null;
+    
     if (input === empty) {
       alert('내용을 입력하여 주세요!');
       return;
     }
     
-    const files = Array.from(this.state.image);
     const formData = new FormData()
-    
     formData.append("id", this.id+1)
     formData.append("text", input)
     formData.append("color", color)
-    formData.append("fileName", files[0].name)
-    formData.append("image", files[0], files[0].name)
+
+    if(this.state.image != null){
+      const files = Array.from(this.state.image);
+      formData.append("fileName", files[0].name)
+      formData.append("image", files[0], files[0].name)
+      fileName = this.id+1+'_'+files[0].name;
+    }
 
     axios.post('http://localhost:8080/insert',
       formData,
@@ -110,7 +115,7 @@ class App extends Component {
             color,
             moment: moment().format('LLL'),
             updateYn: false,
-            image: this.id+1+'_'+files[0].name,
+            image: fileName,
           })
           .sort((a, b) => {
             var leftArray = a.id
@@ -125,6 +130,7 @@ class App extends Component {
           ),
           
       }),
+      window.location.reload()
     );
   };
 

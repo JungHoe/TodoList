@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './TextLine.css';
 import OpengraphReactComponent from './OpengraphReactComponent';
+import Axios from 'axios';
 
 class TextLine extends Component {
   render() {
@@ -26,7 +27,8 @@ class TextLine extends Component {
     };
 
     const imagearea = () =>{
-      let path = 'C:\\Users\\korea\\git\\starter\\files\\';
+      let path = 'http://localhost:8080/image?fileName=';
+      console.log(path+image);
       if(image == null){
         return(<div></div>)
       }else{
@@ -34,7 +36,6 @@ class TextLine extends Component {
           <section>
             <img src={path+image} />
           </section>
-
         );
       }
     }
