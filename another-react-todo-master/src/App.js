@@ -78,7 +78,11 @@ class App extends Component {
   } 
 
   imgOnClick = e => {
-
+    e.target.value = null;
+    this.setState({
+      image: null,
+      imgSrc: null,
+    })
   }
 
   handleChange = e => {
@@ -338,12 +342,13 @@ class App extends Component {
       closeModal,
       cancleModal,
       onChangeImg,
+      imgOnClick
     } = this;
 
     return (
       <TodoListTemplate
         form={<Form value={input} onKeyPress={handleKeyPress} onChange={handleChange} 
-        onCreate={handleCreate} color={color} onChangeImg={onChangeImg} imgSrc={imgSrc}/>}
+        onCreate={handleCreate} color={color} onChangeImg={onChangeImg} imgSrc={imgSrc} imgOnClick={imgOnClick}/>}
         palette={<Palette colors={colors} selected={color} onSelect={handleSelectColor} />}
      
       >

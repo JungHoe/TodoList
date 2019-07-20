@@ -31,8 +31,10 @@ class TextLine extends Component {
         return(<div></div>)
       }else{
         return(
-          <section>
-            <img src={image} />
+          <section className='TextLineImgBox'>
+            <div>
+              <img src={image} className='TextLineImg'/>
+            </div>
           </section>
         );
       }

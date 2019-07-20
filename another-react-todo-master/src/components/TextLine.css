@@ -1,3 +1,13 @@
+.TextLineImgBox{
+  position: relative;
+}
+
+.TextLineImg{
+  position: static;
+  width: 100%;
+  height: 100%;
+}
+
 .checked {
   text-decoration: line-through;
 }

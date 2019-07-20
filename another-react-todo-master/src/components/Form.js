@@ -1,7 +1,7 @@
 import React from 'react';
 import './Form.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faImage } from '@fortawesome/free-solid-svg-icons'
+import { faImage, faTimes } from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -13,8 +13,8 @@ const Form = ({ value, onChange, onCreate, onKeyPress, color, onChangeImg, imgSr
     }else{
       return(
         <section className='imgSection'>
-          <label htmlFor='previewImg' >
-            <FontAwesomeIcon className='previewBtnBox' icon={faImage} color='#3B5998' size='3x' />
+          <label htmlFor='previewImg' onClick={imgOnClick}>
+            <FontAwesomeIcon className='previewBtnBox' icon={faTimes} color='grey' size='3x' />
           </label>
           <img id='previewImg' className="previewImg" src={imgSrc}></img>
         </section>
