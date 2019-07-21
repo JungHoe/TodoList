@@ -8,7 +8,7 @@ import moment from 'moment';
 import { empty } from 'rxjs';
 import MakeModal from './components/MakeModal';
 import axios from 'axios';
-import { faAssistiveListeningSystems } from '@fortawesome/free-solid-svg-icons';
+import EventBus from 'vertx3-eventbus-client';
 
 
 
@@ -16,30 +16,46 @@ const colors = ['#343a40', '#ff0000', '#ff9900', '#ffff00', '#008000', '#0033cc'
 
 class App extends Component {
   componentDidMount() {
-    axios.get('http://localhost:8080/').then(response => {
-      this.id = response.data.totalCnt;
-      const todoLists = response.data.todoList.map(a => {
-        if (a.checked === 'N') {
-          a.checked = false;
-        } else {
-          a.checked = true;
-        }
-        return {
-          id: a.id,
-          text: a.text,
-          checked: a.checked,
-          color: a.color,
-          image: a.image,
-          moment: moment(a.moment).format('LLL'),
-          useyn: a.useYn,
-          updateYn: false,
-        };
-      });
-      const newState = Object.assign({}, this.state, {
-        todos: todoLists,
-      });
-      this.setState(newState);
-    });
+    function socket(){
+      let eventBus = new EventBus('http://localhost:8080/eventbus')
+      eventBus.onopen = function(){
+        eventBus.registerHandler('todos', function(error, message){
+          console.log(JSON.parse(message.body).id)
+        })
+      }
+    }
+    socket();
+
+    axios.get('http://localhost:8080/api/get')
+      .then(response => {
+        console.log(response);
+        this.id = response.data.totalCnt;
+        const todoLists = response.data.todoList.map(a => {
+          if (a.checked === 'N') {
+            a.checked = false;
+          } else {
+            a.checked = true;
+          }
+          return {
+            id: a.id,
+            text: a.text,
+            checked: a.checked,
+            color: a.color,
+            image: a.image,
+            moment: moment(a.moment).format('LLL'),
+            useyn: a.useYn,
+            updateYn: false,
+          };
+        });
+        const newState = Object.assign({}, this.state, {
+          todos: todoLists,
+        });
+        this.setState(newState);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+    ;
   }
 
   state = {
@@ -56,15 +72,17 @@ class App extends Component {
     imgSrc: null,
   };
 
-  onChangeImg = e => {    
-    console.log(e.target.value)
+  
 
+  onChangeImg = e => { 
+    console.log(e.target.value)
+    
     this.setState({
       image: e.target.files
     });
     
 
-    if(e.target.value != null && e.target.value != ""){
+    if(e.target.value !== null && e.target.value !== ""){
       let file = e.target.files[0]
       let reader = new FileReader();
   
@@ -93,8 +111,7 @@ class App extends Component {
 
   handleCreate = () => {
     const { input, todos, color, flag, imgSrc } = this.state;
-    let fileName = null;
-    
+ 
     if (input === empty) {
       alert('내용을 입력하여 주세요!');
       return;
@@ -109,10 +126,9 @@ class App extends Component {
       const files = Array.from(this.state.image);
       formData.append("fileName", files[0].name)
       formData.append("image", files[0], files[0].name)
-      fileName = this.id+1+'_'+files[0].name;
     }
 
-    axios.post('http://localhost:8080/insert',
+    axios.post('http://localhost:8080/api/insert',
       formData,
       {headers: {'Content-Type': 'multipart/form-data'}}
     ).then(
@@ -171,7 +187,7 @@ class App extends Component {
 
     axios({
       method: 'PATCH',
-      url: 'http://localhost:8080/checked',
+      url: 'http://localhost:8080/api/checked',
       params: {
         id: selected.id,
         checked: checked,
@@ -194,7 +210,7 @@ class App extends Component {
 
     axios({
       method: 'DELETE',
-      url: 'http://localhost:8080/delete',
+      url: 'http://localhost:8080/api/delete',
       params: {
         id: id,
       },
@@ -228,7 +244,6 @@ class App extends Component {
       }),
       flag: !this.state.flag,
     });
-    console.log(todos);
   };
 
   // 수정모드 전환
@@ -275,7 +290,7 @@ class App extends Component {
 
       axios({
         method: 'patch',
-        url: 'http://localhost:8080/todoitem',
+        url: 'http://localhost:8080/api/todoitem',
         params: {
           id: id,
           text: selected.text,
@@ -292,7 +307,7 @@ class App extends Component {
       };
       axios({
         method: 'patch',
-        url: 'http://localhost:8080/todoitem',
+        url: 'http://localhost:8080/api/todoitem',
         params: {
           id: id,
           text: updateText,

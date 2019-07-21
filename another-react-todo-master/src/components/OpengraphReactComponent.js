@@ -16,7 +16,7 @@ export default class OpengraphReactComponent extends Component {
     let originUrl = this.props.site;
     let result = originUrl.replace(/.*?:\/\//g, '');
 
-    axios.get('http://localhost:8080/metadata?url=' + result).then(response => {
+    axios.get('http://localhost:8080/api/metadata?url=' + result).then(response => {
       this.setState({
         title: response.data.title,
         image: response.data.image,
@@ -34,7 +34,7 @@ export default class OpengraphReactComponent extends Component {
       <div className="OpenBox" onClick={this.handleClick}>
           <div>
           
-              <img className="Image" src={image} />
+              <img className="Image" src={image} alt='openGraphImg'/>
            
           </div>
           <div className="TextBox">

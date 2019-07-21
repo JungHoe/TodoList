@@ -16,7 +16,7 @@ const Form = ({ value, onChange, onCreate, onKeyPress, color, onChangeImg, imgSr
           <label htmlFor='previewImg' onClick={imgOnClick}>
             <FontAwesomeIcon className='previewBtnBox' icon={faTimes} color='grey' size='3x' />
           </label>
-          <img id='previewImg' className="previewImg" src={imgSrc}></img>
+          <img id='previewImg' className="previewImg" src={imgSrc} alt='previewImg'></img>
         </section>
       )
     }

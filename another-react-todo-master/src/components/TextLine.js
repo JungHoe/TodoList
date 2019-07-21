@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './TextLine.css';
 import OpengraphReactComponent from './OpengraphReactComponent';
-import Axios from 'axios';
 
 class TextLine extends Component {
   render() {
@@ -33,7 +32,7 @@ class TextLine extends Component {
         return(
           <section className='TextLineImgBox'>
             <div>
-              <img src={image} className='TextLineImg'/>
+              <img src={image} className='TextLineImg'  alt='textLineImg'/>
             </div>
           </section>
         );
