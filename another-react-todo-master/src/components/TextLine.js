@@ -5,6 +5,10 @@ import Axios from 'axios';
 
 class TextLine extends Component {
   render() {
+  const style={
+    width:'200px',
+    height:'200px'
+  }
     const { text, color, checked, image } = this.props;
     const opengraph = [];
     let txt = text;
@@ -32,7 +36,7 @@ class TextLine extends Component {
       }else{
         return(
           <section>
-            <img src={image} />
+            <img src={image} style={style} />
           </section>
         );
       }

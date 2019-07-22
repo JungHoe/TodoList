@@ -40,6 +40,7 @@ class App extends Component {
       });
       this.setState(newState);
     });
+ 
   }
 
   state = {
@@ -129,6 +130,7 @@ class App extends Component {
           ),
       }),
     );
+    console.log(todos);
   };
 
   handleKeyPress = e => {
@@ -242,8 +244,9 @@ class App extends Component {
   };
 
   // 수정완료
-  handleUpdate = (id, updateText, updateColor) => {
+  handleUpdate = (id, updateText, updateColor,updateImg,image) => {
     let checked;
+    const formData = new FormData();
     const { todos } = this.state;
     const index = todos.findIndex(todo => todo.id === id);
     const selected = todos[index];
@@ -253,41 +256,65 @@ class App extends Component {
     } else {
       checked = 'N';
     }
-    if (updateText === '') {
-      nextTodos[index] = {
-        ...selected,
-        color: updateColor,
-        updateYn: false,
-      };
+    // if (updateText === '') {
+    //   nextTodos[index] = {
+    //     ...selected,
+    //     color: updateColor,
+    //     updateYn: false,
+    //     image:updateImg,
+    //   };
 
-      axios({
-        method: 'patch',
-        url: 'http://localhost:8080/todoitem',
-        params: {
-          id: id,
-          text: selected.text,
-          color: updateColor,
-          checked: checked,
-        },
-      });
-    } else {
+    //   axios({
+    //     method: 'patch',
+    //     url: 'http://localhost:8080/todoitem',
+    //     params: {
+    //       id: id,
+    //       text: selected.text,
+    //       color: updateColor,
+    //       checked: checked,
+    //     },
+    //   });
+   // } else {
+
       nextTodos[index] = {
         ...selected,
         text: updateText,
         color: updateColor,
         updateYn: false,
+        image:updateImg,
       };
+
+      formData.append("id",id)
+      formData.append("text", updateText)
+      formData.append("color", updateColor) 
+      formData.append("checked", checked) 
+
+      if(image===''){
+       // alert("변경되지않았습니다."); 
+      formData.append("action","notImgUpdated") 
+      }
+      else if(image===null){
+      //  alert("삭제되었습니다.");
+      formData.append("action","imgDeleted") 
+      }else{
+ //       if(selected.image===null){
+          // alert("추가되었습니다.")
+          formData.append("action","insertImage")
+            const files = Array.from(image);
+            formData.append("fileName", files[0].name)
+            formData.append("image", files[0], files[0].name)
+          
+ //       }else{
+  //       alert("변경되었습니다.");
+ //       }
+      }
       axios({
         method: 'patch',
         url: 'http://localhost:8080/todoitem',
-        params: {
-          id: id,
-          text: updateText,
-          color: updateColor,
-          checked: checked,
-        },
+        data:formData,
       });
-    }
+
+   // }
 
     this.setState({
       todos: nextTodos,
@@ -313,6 +340,14 @@ class App extends Component {
   });
   }
 
+  imgOnClick = e => {
+    e.target.value = null;
+    this.setState({
+      image: null,
+      imgSrc: null,
+    })
+  }
+
   render() {
     const { input, todos, color, sortName, modalIsOpen, imgSrc} = this.state;
     const {
@@ -329,12 +364,13 @@ class App extends Component {
       closeModal,
       cancleModal,
       onChangeImg,
+      imgOnClick
     } = this;
 
     return (
       <TodoListTemplate
         form={<Form value={input} onKeyPress={handleKeyPress} onChange={handleChange} 
-        onCreate={handleCreate} color={color} onChangeImg={onChangeImg} imgSrc={imgSrc}/>}
+        onCreate={handleCreate} color={color} onChangeImg={onChangeImg} imgSrc={imgSrc}imgOnClick={imgOnClick}/>}
         palette={<Palette colors={colors} selected={color} onSelect={handleSelectColor} />}
      
       >

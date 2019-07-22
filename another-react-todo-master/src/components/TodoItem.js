@@ -32,6 +32,7 @@ class TodoItem extends Component {
                   text={text}
                   color={color}
                   colors={colors}
+                  image={image}
                   ref={ref => {
                     this.updateDom = ref;
                   }}
@@ -53,7 +54,8 @@ class TodoItem extends Component {
           <div
             className="update"
             onClick={() => {
-              onUpdate(id, this.updateDom.state.updateText, this.updateDom.state.updateColor);
+              onUpdate(id, this.updateDom.state.updateText, this.updateDom.state.updateColor,
+                this.updateDom.state.updateImg,this.updateDom.state.image);
             }}
           >
             {doneIcon}

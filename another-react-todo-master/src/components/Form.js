@@ -1,10 +1,12 @@
 import React from 'react';
 import './Form.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faImage } from '@fortawesome/free-solid-svg-icons'
+import { faImage, faTimes } from '@fortawesome/free-solid-svg-icons'
 
-
-
+const style={
+  width:'200px',
+  height:'200px'
+}
 const Form = ({ value, onChange, onCreate, onKeyPress, color, onChangeImg, imgSrc, imgOnClick }) => {
 
   const preview = () =>{
@@ -12,8 +14,11 @@ const Form = ({ value, onChange, onCreate, onKeyPress, color, onChangeImg, imgSr
       return(<div></div>)
     }else{
       return(
-        <section>
-          <img className="previewImg" src={imgSrc}></img>
+        <section className='imgSection'>
+          <label htmlFor='previewImg' onClick={imgOnClick}>
+            <FontAwesomeIcon className='previewBtnBox' icon={faTimes} color='grey' size='3x' />
+          </label>
+          <img id='previewImg' className="previewImg" src={imgSrc} alt='previewImg' style={style}></img>
         </section>
       )
     }
