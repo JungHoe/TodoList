@@ -321,52 +321,51 @@ class App extends Component {
   };
 
   // 수정완료
-  handleUpdate = (id, updateText, updateColor) => {
+  handleUpdate = (id, updateText, updateColor,updateImg,image) => {
+    console.log(updateImg);
     let checked;
+    const formData = new FormData();
     const { todos } = this.state;
     const index = todos.findIndex(todo => todo.id === id);
     const selected = todos[index];
     const nextTodos = [...todos];
+
     if (selected.checked === true) {
       checked = 'Y';
     } else {
       checked = 'N';
     }
-    if (updateText === '') {
-      nextTodos[index] = {
-        ...selected,
-        color: updateColor,
-        updateYn: false,
-      };
-
-      axios({
-        method: 'post',
-        url: 'http://192.168.0.108:8080/api/todoitem',
-        params: {
-          id: id,
-          text: selected.text,
-          color: updateColor,
-          checked: checked,
-        },
-      });
-    } else {
-      nextTodos[index] = {
-        ...selected,
-        text: updateText,
-        color: updateColor,
-        updateYn: false,
-      };
-      axios({
-        method: 'post',
-        url: 'http://192.168.0.108:8080/api/todoitem',
-        params: {
-          id: id,
-          text: updateText,
-          color: updateColor,
-          checked: checked,
-        },
-      });
+ 
+    nextTodos[index] = {
+      ...selected,
+      text: updateText,
+      color: updateColor,
+      updateYn: false,
+      image:updateImg,
+    };
+ 
+    formData.append("id",id)
+    formData.append("text", updateText)
+    formData.append("color", updateColor)
+    formData.append("checked", checked)
+ 
+    if(image===''){
+    formData.append("action","notImgUpdated")
     }
+    else if(image===null){
+    formData.append("action","imgDeleted")
+    }else{
+        formData.append("action","insertImage")
+        const files = Array.from(image);
+        formData.append("fileName", files[0].name)
+        formData.append("image", files[0], files[0].name)
+    }
+
+    axios({
+      method: 'post',
+      url: 'http://192.168.0.108:8080/api/todoitem',
+      data:formData,
+    });
 
     this.setState({
       todos: nextTodos,

@@ -29,13 +29,14 @@ class TodoItem extends Component {
             ) : (
               <div>
                 <Update
-                  text={text}
-                  color={color}
-                  colors={colors}
-                  ref={ref => {
-                    this.updateDom = ref;
-                  }}
-                />
+                 text={text}
+                 color={color}
+                 colors={colors}
+                 image={image}
+                 ref={ref => {
+                   this.updateDom = ref;
+                 }}
+               />
               </div>
             )}
           </div>
@@ -51,12 +52,13 @@ class TodoItem extends Component {
           </div>
         ) : (
           <div
-            className="update"
-            onClick={() => {
-              onUpdate(id, this.updateDom.state.updateText, this.updateDom.state.updateColor);
-            }}
-          >
-            {doneIcon}
+           className="update"
+           onClick={() => {
+             onUpdate(id, this.updateDom.state.updateText, this.updateDom.state.updateColor,
+               this.updateDom.state.updateImg,this.updateDom.state.image);
+           }}
+         >
+           {doneIcon}
           </div>
         )}
 
