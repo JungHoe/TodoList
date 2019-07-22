@@ -15,20 +15,90 @@ import EventBus from 'vertx3-eventbus-client';
 const colors = ['#343a40', '#ff0000', '#ff9900', '#ffff00', '#008000', '#0033cc', '#000066', '#ff3399'];
 
 class App extends Component {
-  componentDidMount() {
-    function socket(){
-      let eventBus = new EventBus('http://localhost:8080/eventbus')
-      eventBus.onopen = function(){
-        eventBus.registerHandler('todos', function(error, message){
-          console.log(JSON.parse(message.body).id)
-        })
-      }
-    }
-    socket();
 
-    axios.get('http://localhost:8080/api/get')
+  constructor(){
+    super();
+    this.state = {
+      test: 0,
+      getRemoveId: 0,
+      modalIsOpen: false,
+      input: empty,
+      todos: [],
+      color: '#343a40',
+      sortName: '오름차순',
+      flag: true,
+      uploading: false,
+      image: null,
+      imgSrc: null,
+    }
+  }
+
+  id;
+  eventBus = new EventBus('http://192.168.0.108:8080/eventbus')
+
+  componentDidMount() {
+    this.eventBus.onopen = () =>{
+      this.eventBus.registerHandler('todos', (error, message) => {
+        console.log(message)
+        if(this.id >= JSON.parse(message.body).id) {
+          console.log("수정 or 본인글 진입")
+          if(JSON.parse(message.body).useYn === 'Y'){
+            console.log("수정 진입")
+            const index = this.state.todos.findIndex(todo => todo.id === JSON.parse(message.body).id)
+            const selected = this.state.todos[index];
+            const nextTodos = [...this.state.todos];
+            let check = false;
+            if (JSON.parse(message.body).checked === 'Y') {
+              check = true;
+            }
+            nextTodos[index] = {
+              ...selected,
+              text: JSON.parse(message.body).text,
+              checked: check,
+              color: JSON.parse(message.body).color,
+              moment: moment(JSON.parse(message.body).moment).format('LLL'),
+              updateYn: false,
+              image: JSON.parse(message.body).image,
+            };
+            this.setState({
+              todos: nextTodos,
+            });
+          }else{
+            console.log("삭제 진입")
+            let todos = this.state.todos;
+            this.setState({
+              todos: todos.filter(todo => todo.id !== JSON.parse(message.body).id)
+            })
+          }
+        } else {
+          console.log("새로운 입력진입");
+          let todos = this.state.todos;
+          let check = false;
+          if (JSON.parse(message.body).checked === 'Y') {
+            check = true;
+          }
+          this.id = JSON.parse(message.body).id;
+          this.setState({
+            todos: todos
+              .concat({
+                id: JSON.parse(message.body).id,
+                text: JSON.parse(message.body).text,
+                checked: check,
+                color: JSON.parse(message.body).color,
+                moment: moment(JSON.parse(message.body).moment).format('LLL'),
+                useYn: JSON.parse(message.body).useYn,
+                updateYn: false,
+                image: JSON.parse(message.body).image,
+              })
+          })
+        }
+      })
+    }
+
+
+    axios.get('http://192.168.0.108:8080/api/get')
       .then(response => {
-        console.log(response);
+        console.log(response.data)
         this.id = response.data.totalCnt;
         const todoLists = response.data.todoList.map(a => {
           if (a.checked === 'N') {
@@ -43,7 +113,7 @@ class App extends Component {
             color: a.color,
             image: a.image,
             moment: moment(a.moment).format('LLL'),
-            useyn: a.useYn,
+            useYn: a.useYn,
             updateYn: false,
           };
         });
@@ -54,29 +124,10 @@ class App extends Component {
       })
       .catch(function (error) {
         console.log(error);
-      })
-    ;
+      });
   }
 
-  state = {
-    test: 0,
-    getRemoveId: 0,
-    modalIsOpen: false,
-    input: empty,
-    todos: [],
-    color: '#343a40',
-    sortName: '오름차순',
-    flag: true,
-    uploading: false,
-    image: null,
-    imgSrc: null,
-  };
-
-  
-
   onChangeImg = e => { 
-    console.log(e.target.value)
-    
     this.setState({
       image: e.target.files
     });
@@ -128,7 +179,7 @@ class App extends Component {
       formData.append("image", files[0], files[0].name)
     }
 
-    axios.post('http://localhost:8080/api/insert',
+    axios.post('http://192.168.0.108:8080/api/insert',
       formData,
       {headers: {'Content-Type': 'multipart/form-data'}}
     ).then(
@@ -186,8 +237,8 @@ class App extends Component {
     }
 
     axios({
-      method: 'PATCH',
-      url: 'http://localhost:8080/api/checked',
+      method: 'post',
+      url: 'http://192.168.0.108:8080/api/checked',
       params: {
         id: selected.id,
         checked: checked,
@@ -209,8 +260,8 @@ class App extends Component {
     const { todos } = this.state;
 
     axios({
-      method: 'DELETE',
-      url: 'http://localhost:8080/api/delete',
+      method: 'post',
+      url: 'http://192.168.0.108:8080/api/delete',
       params: {
         id: id,
       },
@@ -289,8 +340,8 @@ class App extends Component {
       };
 
       axios({
-        method: 'patch',
-        url: 'http://localhost:8080/api/todoitem',
+        method: 'post',
+        url: 'http://192.168.0.108:8080/api/todoitem',
         params: {
           id: id,
           text: selected.text,
@@ -306,8 +357,8 @@ class App extends Component {
         updateYn: false,
       };
       axios({
-        method: 'patch',
-        url: 'http://localhost:8080/api/todoitem',
+        method: 'post',
+        url: 'http://192.168.0.108:8080/api/todoitem',
         params: {
           id: id,
           text: updateText,
@@ -331,9 +382,11 @@ class App extends Component {
     this.handleRemove(getRemoveId);
     this.setState({ modalIsOpen: false });
   };
+
   cancleModal = () => {
     this.setState({ modalIsOpen: false });
   };
+
   handleOndrop = (pictureFiles, pictureDataURLs) =>{
     this.setState({
       pictures: this.state.pictures.concat(pictureFiles),
