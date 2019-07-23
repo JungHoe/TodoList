@@ -39,11 +39,8 @@ class App extends Component {
   componentDidMount() {
     this.eventBus.onopen = () =>{
       this.eventBus.registerHandler('todos', (error, message) => {
-        console.log(message)
         if(this.id >= JSON.parse(message.body).id) {
-          console.log("수정 or 본인글 진입")
           if(JSON.parse(message.body).useYn === 'Y'){
-            console.log("수정 진입")
             const index = this.state.todos.findIndex(todo => todo.id === JSON.parse(message.body).id)
             const selected = this.state.todos[index];
             const nextTodos = [...this.state.todos];
@@ -64,14 +61,12 @@ class App extends Component {
               todos: nextTodos,
             });
           }else{
-            console.log("삭제 진입")
             let todos = this.state.todos;
             this.setState({
               todos: todos.filter(todo => todo.id !== JSON.parse(message.body).id)
             })
           }
         } else {
-          console.log("새로운 입력진입");
           let todos = this.state.todos;
           let check = false;
           if (JSON.parse(message.body).checked === 'Y') {
@@ -94,11 +89,11 @@ class App extends Component {
         }
       })
     }
+    this.eventBus.send
 
 
     axios.get('http://192.168.0.108:8080/api/get')
       .then(response => {
-        console.log(response.data)
         this.id = response.data.totalCnt;
         const todoLists = response.data.todoList.map(a => {
           if (a.checked === 'N') {
@@ -122,9 +117,6 @@ class App extends Component {
         });
         this.setState(newState);
       })
-      .catch(function (error) {
-        console.log(error);
-      });
   }
 
   onChangeImg = e => { 
@@ -322,7 +314,6 @@ class App extends Component {
 
   // 수정완료
   handleUpdate = (id, updateText, updateColor,updateImg,image) => {
-    console.log(updateImg);
     let checked;
     const formData = new FormData();
     const { todos } = this.state;
